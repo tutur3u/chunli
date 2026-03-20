@@ -132,6 +132,7 @@
 }
 
 .wii-u-close-button {
+  cursor: pointer;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(247, 248, 250, 0.68));
   box-shadow:

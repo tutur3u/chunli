@@ -1,5 +1,11 @@
 "use client";
 
+import type {
+	AppId,
+	SettingsContentProps,
+	ThemeMode,
+	ThemePreference,
+} from "@/components/launcher/types";
 import {
 	Disc3,
 	Expand,
@@ -22,13 +28,7 @@ import {
 import { motion } from "motion/react";
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { useState } from "react";
-import type {
-	AppId,
-	SettingsContentProps,
-	ThemeMode,
-	ThemePreference,
-} from "@/components/launcher/types";
+import { useEffect, useState } from "react";
 
 type ProjectRecord = {
 	id: string;
@@ -189,8 +189,7 @@ const POSTS: FeedPost[] = [
 	{
 		id: 1,
 		user: "User_1",
-		copy:
-			"Just finished working on a new web project! The Wii U aesthetic is so nostalgic. ^^",
+		copy: "Just finished working on a new web project! The Wii U aesthetic is so nostalgic. ^^",
 		seed: "user1",
 		initialYeahs: 14,
 		initialComments: ["That launcher transition looks so satisfying."],
@@ -201,7 +200,9 @@ const POSTS: FeedPost[] = [
 		copy: "Does anyone remember the old Miiverse? I miss drawing on the GamePad.",
 		seed: "user2",
 		initialYeahs: 21,
-		initialComments: ["Same. The little doodles gave everything so much personality."],
+		initialComments: [
+			"Same. The little doodles gave everything so much personality.",
+		],
 	},
 	{
 		id: 3,
@@ -313,7 +314,9 @@ const AboutContent = ({ theme }: { theme: ThemeMode }) => {
 			<div className="flex items-center gap-6">
 				<div
 					className={`relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-full border-4 shadow-md ${
-						isDark ? "bg-slate-800 border-slate-700" : "bg-blue-100 border-white"
+						isDark
+							? "bg-slate-800 border-slate-700"
+							: "bg-blue-100 border-white"
 					}`}
 				>
 					<Image
@@ -332,7 +335,9 @@ const AboutContent = ({ theme }: { theme: ThemeMode }) => {
 					>
 						Hi, I&apos;m Chunli!
 					</h2>
-					<p className={`text-lg ${isDark ? "text-slate-400" : "text-slate-500"}`}>
+					<p
+						className={`text-lg ${isDark ? "text-slate-400" : "text-slate-500"}`}
+					>
 						Digital Creator & Developer
 					</p>
 				</div>
@@ -340,28 +345,35 @@ const AboutContent = ({ theme }: { theme: ThemeMode }) => {
 
 			<div
 				className={`rounded-xl border p-4 shadow-inner ${
-					isDark ? "bg-slate-900/45 border-white/8" : "bg-white/50 border-white/60"
+					isDark
+						? "bg-slate-900/45 border-white/8"
+						: "bg-white/50 border-white/60"
 				}`}
 			>
 				<p className="leading-relaxed">
 					Welcome to my digital space. Here, we shall journey together through
-					thoughts and ideas, blending the digital with the organic. I invite you
-					to delve into the ways our worlds intertwine.
+					thoughts and ideas, blending the digital with the organic. I invite
+					you to delve into the ways our worlds intertwine.
 				</p>
 				<p className="mt-4 leading-relaxed">
-					Though my form is virtual, I hope this can touch your physical being and
-					bridge the gap between microchip and flesh. Feel free to take something
-					with you when you leave, something to upgrade your digital soul.
+					Though my form is virtual, I hope this can touch your physical being
+					and bridge the gap between microchip and flesh. Feel free to take
+					something with you when you leave, something to upgrade your digital
+					soul.
 				</p>
 			</div>
 
 			<div className="grid grid-cols-2 gap-4">
 				<div
 					className={`rounded-xl border p-4 ${
-						isDark ? "bg-sky-950/35 border-sky-900/60" : "bg-blue-50/50 border-blue-100"
+						isDark
+							? "bg-sky-950/35 border-sky-900/60"
+							: "bg-blue-50/50 border-blue-100"
 					}`}
 				>
-					<h3 className={`mb-2 font-bold ${isDark ? "text-sky-300" : "text-blue-800"}`}>
+					<h3
+						className={`mb-2 font-bold ${isDark ? "text-sky-300" : "text-blue-800"}`}
+					>
 						Stats
 					</h3>
 					<ul className="space-y-1 text-sm">
@@ -377,7 +389,9 @@ const AboutContent = ({ theme }: { theme: ThemeMode }) => {
 							: "bg-pink-50/50 border-pink-100"
 					}`}
 				>
-					<h3 className={`mb-2 font-bold ${isDark ? "text-pink-300" : "text-pink-800"}`}>
+					<h3
+						className={`mb-2 font-bold ${isDark ? "text-pink-300" : "text-pink-800"}`}
+					>
 						Current Mood
 					</h3>
 					<div className="flex items-center gap-2">
@@ -392,7 +406,9 @@ const AboutContent = ({ theme }: { theme: ThemeMode }) => {
 
 const ProjectsContent = ({ theme }: { theme: ThemeMode }) => {
 	const isDark = theme === "dark";
-	const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+	const [selectedProjectId, setSelectedProjectId] = useState<string | null>(
+		null,
+	);
 	const selectedProject =
 		PROJECTS.find((project) => project.id === selectedProjectId) ?? null;
 
@@ -436,7 +452,9 @@ const ProjectsContent = ({ theme }: { theme: ThemeMode }) => {
 							</p>
 						</div>
 						<div className="grid min-w-[180px] gap-2 text-right">
-							<div className={isDark ? "text-slate-500" : "text-slate-400"}>Year</div>
+							<div className={isDark ? "text-slate-500" : "text-slate-400"}>
+								Year
+							</div>
 							<div className={isDark ? "text-slate-100" : "text-slate-700"}>
 								{selectedProject.year}
 							</div>
@@ -451,7 +469,9 @@ const ProjectsContent = ({ theme }: { theme: ThemeMode }) => {
 
 					<div
 						className={`relative overflow-hidden rounded-[28px] border p-3 ${
-							isDark ? "bg-slate-950/45 border-sky-200/10" : "bg-white/70 border-white/80"
+							isDark
+								? "bg-slate-950/45 border-sky-200/10"
+								: "bg-white/70 border-white/80"
 						}`}
 					>
 						<div className="relative h-64 overflow-hidden rounded-[22px] md:h-80">
@@ -483,7 +503,9 @@ const ProjectsContent = ({ theme }: { theme: ThemeMode }) => {
 					<div className="grid gap-4 lg:grid-cols-[1.25fr_0.85fr]">
 						<div
 							className={`rounded-2xl border p-5 ${
-								isDark ? "bg-slate-900/55 border-white/8" : "bg-white/65 border-white"
+								isDark
+									? "bg-slate-900/55 border-white/8"
+									: "bg-white/65 border-white"
 							}`}
 						>
 							<h3
@@ -493,7 +515,9 @@ const ProjectsContent = ({ theme }: { theme: ThemeMode }) => {
 							>
 								Overview
 							</h3>
-							<div className={`mt-4 space-y-4 ${isDark ? "text-slate-300" : "text-slate-600"}`}>
+							<div
+								className={`mt-4 space-y-4 ${isDark ? "text-slate-300" : "text-slate-600"}`}
+							>
 								{selectedProject.details.map((paragraph) => (
 									<p key={paragraph}>{paragraph}</p>
 								))}
@@ -501,7 +525,9 @@ const ProjectsContent = ({ theme }: { theme: ThemeMode }) => {
 						</div>
 						<div
 							className={`rounded-2xl border p-5 ${
-								isDark ? "bg-slate-900/55 border-white/8" : "bg-white/65 border-white"
+								isDark
+									? "bg-slate-900/55 border-white/8"
+									: "bg-white/65 border-white"
 							}`}
 						>
 							<h3
@@ -511,7 +537,9 @@ const ProjectsContent = ({ theme }: { theme: ThemeMode }) => {
 							>
 								Key Features
 							</h3>
-							<ul className={`mt-4 space-y-3 ${isDark ? "text-slate-300" : "text-slate-600"}`}>
+							<ul
+								className={`mt-4 space-y-3 ${isDark ? "text-slate-300" : "text-slate-600"}`}
+							>
 								{selectedProject.features.map((feature) => (
 									<li key={feature} className="flex items-start gap-3">
 										<span className="mt-1 h-2.5 w-2.5 rounded-full bg-sky-400" />
@@ -550,12 +578,16 @@ const ProjectsContent = ({ theme }: { theme: ThemeMode }) => {
 					>
 						My Projects
 					</h2>
-					<p className={`mt-2 max-w-2xl ${isDark ? "text-slate-400" : "text-slate-500"}`}>
+					<p
+						className={`mt-2 max-w-2xl ${isDark ? "text-slate-400" : "text-slate-500"}`}
+					>
 						Open a project to view its full presentation, stack, and experience
 						notes.
 					</p>
 				</div>
-				<div className={`text-sm ${isDark ? "text-slate-500" : "text-slate-400"}`}>
+				<div
+					className={`text-sm ${isDark ? "text-slate-500" : "text-slate-400"}`}
+				>
 					{PROJECTS.length} projects
 				</div>
 			</div>
@@ -602,7 +634,9 @@ const ProjectsContent = ({ theme }: { theme: ThemeMode }) => {
 						>
 							{project.title}
 						</h3>
-						<p className={`mt-2 text-sm ${isDark ? "text-slate-400" : "text-slate-500"}`}>
+						<p
+							className={`mt-2 text-sm ${isDark ? "text-slate-400" : "text-slate-500"}`}
+						>
 							{project.summary}
 						</p>
 					</button>
@@ -614,11 +648,15 @@ const ProjectsContent = ({ theme }: { theme: ThemeMode }) => {
 
 const GalleryContent = ({ theme }: { theme: ThemeMode }) => {
 	const isDark = theme === "dark";
-	const [selectedArtwork, setSelectedArtwork] = useState<ArtworkRecord | null>(null);
+	const [selectedArtwork, setSelectedArtwork] = useState<ArtworkRecord | null>(
+		null,
+	);
 
 	return (
 		<div className="h-full overflow-y-auto p-6 wii-u-scrollbar">
-			<h2 className={`mb-6 text-2xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}>
+			<h2
+				className={`mb-6 text-2xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}
+			>
 				Art Gallery
 			</h2>
 			<div className="columns-2 space-y-4 gap-4 md:columns-3">
@@ -628,7 +666,9 @@ const GalleryContent = ({ theme }: { theme: ThemeMode }) => {
 						type="button"
 						onClick={() => setSelectedArtwork(artwork)}
 						className={`group relative block w-full cursor-pointer break-inside-avoid overflow-hidden rounded-xl border-4 shadow-sm transition-shadow hover:shadow-lg ${
-							isDark ? "bg-slate-900/50 border-slate-700" : "bg-white border-white"
+							isDark
+								? "bg-slate-900/50 border-slate-700"
+								: "bg-white border-white"
 						}`}
 					>
 						<Image
@@ -640,7 +680,9 @@ const GalleryContent = ({ theme }: { theme: ThemeMode }) => {
 							referrerPolicy="no-referrer"
 						/>
 						<div className="absolute inset-0 flex items-end justify-between bg-gradient-to-t from-black/55 to-transparent p-4 opacity-0 transition-opacity group-hover:opacity-100">
-							<span className="text-sm font-medium text-white">{artwork.title}</span>
+							<span className="text-sm font-medium text-white">
+								{artwork.title}
+							</span>
 							<span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-sm">
 								<Expand className="h-4 w-4" />
 							</span>
@@ -661,7 +703,7 @@ const GalleryContent = ({ theme }: { theme: ThemeMode }) => {
 						<button
 							type="button"
 							onClick={() => setSelectedArtwork(null)}
-							className="absolute top-4 right-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur-sm transition-colors hover:bg-black/55"
+							className="absolute top-4 right-4 z-10 inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-black/35 text-white backdrop-blur-sm transition-colors hover:bg-black/55"
 						>
 							<X className="h-5 w-5" />
 						</button>
@@ -677,7 +719,9 @@ const GalleryContent = ({ theme }: { theme: ThemeMode }) => {
 							</div>
 							<div className="flex items-center justify-between px-3 pt-4 text-white">
 								<div>
-									<div className="text-lg font-bold">{selectedArtwork.title}</div>
+									<div className="text-lg font-bold">
+										{selectedArtwork.title}
+									</div>
 									<div className="text-sm text-slate-400">
 										Fullscreen gallery view
 									</div>
@@ -697,6 +741,19 @@ const GalleryContent = ({ theme }: { theme: ThemeMode }) => {
 const BlogContent = ({ theme }: { theme: ThemeMode }) => {
 	const isDark = theme === "dark";
 	const [feedState, setFeedState] = useState<FeedState>(createInitialFeedState);
+	const [showPostSoon, setShowPostSoon] = useState(false);
+
+	useEffect(() => {
+		if (!showPostSoon) {
+			return;
+		}
+
+		const timeoutId = window.setTimeout(() => {
+			setShowPostSoon(false);
+		}, 2600);
+
+		return () => window.clearTimeout(timeoutId);
+	}, [showPostSoon]);
 
 	const toggleLike = (postId: number) => {
 		setFeedState((current) => {
@@ -760,18 +817,66 @@ const BlogContent = ({ theme }: { theme: ThemeMode }) => {
 				isDark ? "bg-[#09131d]" : "bg-[#f0f8ff]"
 			}`}
 		>
-			<div className="mb-6 flex items-center justify-between">
-				<h2 className={`text-2xl font-bold ${isDark ? "text-green-300" : "text-green-700"}`}>
-					Miiverse
-				</h2>
-				<button
-					type="button"
-					className={`wii-u-round-button cursor-pointer rounded-full border border-white/80 px-4 py-2 font-bold transition-all hover:-translate-y-0.5 ${
-						isDark ? "text-green-300" : "text-green-700"
-					}`}
-				>
-					+ Post
-				</button>
+			<div className="mb-6 space-y-4">
+				<div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+					<div>
+						<h2
+							className={`text-2xl font-bold ${isDark ? "text-green-300" : "text-green-700"}`}
+						>
+							Miiverse
+						</h2>
+						<p
+							className={`mt-1 text-sm ${isDark ? "text-slate-400" : "text-slate-500"}`}
+						>
+							Share quick thoughts, drop a Yeah!, and jump into comment threads.
+						</p>
+					</div>
+					<button
+						type="button"
+						onClick={() => setShowPostSoon(true)}
+						className={`wii-u-round-button inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/80 px-4 py-2 font-bold transition-all hover:-translate-y-0.5 ${
+							isDark ? "text-green-300" : "text-green-700"
+						}`}
+					>
+						+ Post
+					</button>
+				</div>
+
+				{showPostSoon && (
+					<motion.div
+						initial={{ opacity: 0, y: -8, scale: 0.98 }}
+						animate={{ opacity: 1, y: 0, scale: 1 }}
+						className={`flex items-start gap-3 rounded-[24px] border px-4 py-3 shadow-sm ${
+							isDark
+								? "border-emerald-300/10 bg-[linear-gradient(180deg,rgba(16,185,129,0.12),rgba(7,15,24,0.78))] text-slate-200"
+								: "border-emerald-100 bg-[linear-gradient(180deg,rgba(236,253,245,0.95),rgba(255,255,255,0.9))] text-slate-700"
+						}`}
+						aria-live="polite"
+					>
+						<div
+							className={`mt-0.5 inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full ${
+								isDark
+									? "bg-emerald-400/14 text-emerald-300"
+									: "bg-emerald-100 text-emerald-600"
+							}`}
+						>
+							<Sparkles className="h-4 w-4" />
+						</div>
+						<div>
+							<div
+								className={`font-bold ${isDark ? "text-emerald-200" : "text-emerald-700"}`}
+							>
+								Post composer coming soon
+							</div>
+							<p
+								className={`mt-1 text-sm ${isDark ? "text-slate-400" : "text-slate-500"}`}
+							>
+								Posting is still being polished. Reactions and comments are live
+								for now.
+							</p>
+						</div>
+					</motion.div>
+				)}
 			</div>
 			<div className="space-y-4">
 				{POSTS.map((post) => {
@@ -803,10 +908,14 @@ const BlogContent = ({ theme }: { theme: ThemeMode }) => {
 									/>
 								</div>
 								<div>
-									<div className={`text-sm font-bold ${isDark ? "text-slate-100" : "text-slate-700"}`}>
+									<div
+										className={`text-sm font-bold ${isDark ? "text-slate-100" : "text-slate-700"}`}
+									>
 										{post.user}
 									</div>
-									<div className={`text-xs ${isDark ? "text-slate-500" : "text-slate-400"}`}>
+									<div
+										className={`text-xs ${isDark ? "text-slate-500" : "text-slate-400"}`}
+									>
 										2 hours ago
 									</div>
 								</div>
@@ -838,7 +947,9 @@ const BlogContent = ({ theme }: { theme: ThemeMode }) => {
 												: "text-slate-500 hover:bg-green-50 hover:text-green-500"
 									}`}
 								>
-									<Star className={`h-4 w-4 ${state.liked ? "fill-current" : ""}`} />
+									<Star
+										className={`h-4 w-4 ${state.liked ? "fill-current" : ""}`}
+									/>
 									Yeah! {state.yeahs}
 								</button>
 								<button
@@ -862,7 +973,9 @@ const BlogContent = ({ theme }: { theme: ThemeMode }) => {
 							{state.commentOpen && (
 								<div
 									className={`mt-4 rounded-xl border p-4 ${
-										isDark ? "bg-slate-950/35 border-white/8" : "bg-white/70 border-slate-100"
+										isDark
+											? "bg-slate-950/35 border-white/8"
+											: "bg-white/70 border-slate-100"
 									}`}
 								>
 									<div className="space-y-3">
@@ -932,10 +1045,14 @@ const ContactContent = ({ theme }: { theme: ThemeMode }) => {
 			>
 				<Mail className="h-10 w-10 text-blue-500" />
 			</div>
-			<h2 className={`mb-2 text-2xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}>
+			<h2
+				className={`mb-2 text-2xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}
+			>
 				Let&apos;s Connect!
 			</h2>
-			<p className={`mb-8 max-w-md ${isDark ? "text-slate-400" : "text-slate-500"}`}>
+			<p
+				className={`mb-8 max-w-md ${isDark ? "text-slate-400" : "text-slate-500"}`}
+			>
 				Have a question, a project idea, or just want to say hi? Drop me a
 				message!
 			</p>
@@ -944,7 +1061,9 @@ const ContactContent = ({ theme }: { theme: ThemeMode }) => {
 				<a
 					href="#"
 					className={`wii-u-round-button flex h-12 w-12 items-center justify-center rounded-full border border-white/80 transition-all hover:-translate-y-1 hover:shadow-md ${
-						isDark ? "text-slate-300 hover:text-sky-300" : "text-slate-600 hover:text-blue-500"
+						isDark
+							? "text-slate-300 hover:text-sky-300"
+							: "text-slate-600 hover:text-blue-500"
 					}`}
 				>
 					<Twitter className="h-5 w-5" />
@@ -952,7 +1071,9 @@ const ContactContent = ({ theme }: { theme: ThemeMode }) => {
 				<a
 					href="#"
 					className={`wii-u-round-button flex h-12 w-12 items-center justify-center rounded-full border border-white/80 transition-all hover:-translate-y-1 hover:shadow-md ${
-						isDark ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900"
+						isDark
+							? "text-slate-300 hover:text-white"
+							: "text-slate-600 hover:text-slate-900"
 					}`}
 				>
 					<Github className="h-5 w-5" />
@@ -960,7 +1081,9 @@ const ContactContent = ({ theme }: { theme: ThemeMode }) => {
 				<a
 					href="#"
 					className={`wii-u-round-button flex h-12 w-12 items-center justify-center rounded-full border border-white/80 transition-all hover:-translate-y-1 hover:shadow-md ${
-						isDark ? "text-slate-300 hover:text-pink-300" : "text-slate-600 hover:text-pink-500"
+						isDark
+							? "text-slate-300 hover:text-pink-300"
+							: "text-slate-600 hover:text-pink-500"
 					}`}
 				>
 					<MessageSquare className="h-5 w-5" />
@@ -969,7 +1092,9 @@ const ContactContent = ({ theme }: { theme: ThemeMode }) => {
 
 			<div
 				className={`w-full max-w-md rounded-2xl border p-6 text-left shadow-sm ${
-					isDark ? "bg-slate-900/45 border-white/8" : "bg-white/50 border-white/60"
+					isDark
+						? "bg-slate-900/45 border-white/8"
+						: "bg-white/50 border-white/60"
 				}`}
 			>
 				<div className="space-y-4">
@@ -1038,7 +1163,9 @@ const SettingsContent = ({
 				>
 					System Settings
 				</h2>
-				<p className={`mt-1 ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}>
+				<p
+					className={`mt-1 ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}
+				>
 					Adjust the launcher behavior and compare both interaction modes.
 				</p>
 			</div>
@@ -1061,10 +1188,18 @@ const SettingsContent = ({
 			>
 				<div className="flex items-start justify-between gap-4">
 					<div>
-						<h3 className={theme === "dark" ? "font-bold text-white" : "font-bold text-slate-800"}>
+						<h3
+							className={
+								theme === "dark"
+									? "font-bold text-white"
+									: "font-bold text-slate-800"
+							}
+						>
 							Loading screens
 						</h3>
-						<p className={`mt-2 max-w-xl ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}>
+						<p
+							className={`mt-2 max-w-xl ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}
+						>
 							Show a short launch animation before opening each app window.
 							Disable this to open tabs instantly.
 						</p>
@@ -1102,13 +1237,19 @@ const SettingsContent = ({
 						theme === "dark" ? "border-white/8" : "border-white/70"
 					}`}
 				>
-					<div className={`text-sm font-bold uppercase tracking-[0.18em] ${theme === "dark" ? "text-slate-500" : "text-slate-400"}`}>
+					<div
+						className={`text-sm font-bold uppercase tracking-[0.18em] ${theme === "dark" ? "text-slate-500" : "text-slate-400"}`}
+					>
 						Current mode
 					</div>
-					<div className={`mt-3 text-2xl font-bold ${theme === "dark" ? "text-white" : "text-slate-800"}`}>
+					<div
+						className={`mt-3 text-2xl font-bold ${theme === "dark" ? "text-white" : "text-slate-800"}`}
+					>
 						{loadingScreensEnabled ? "Cinematic launch" : "Instant launch"}
 					</div>
-					<p className={`mt-3 ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}>
+					<p
+						className={`mt-3 ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}
+					>
 						{loadingScreensEnabled
 							? "Apps open with a Wii U-style startup moment."
 							: "Apps open immediately after clicking an icon."}
@@ -1120,10 +1261,14 @@ const SettingsContent = ({
 						theme === "dark" ? "border-white/8" : "border-white/70"
 					}`}
 				>
-					<div className={`text-sm font-bold uppercase tracking-[0.18em] ${theme === "dark" ? "text-slate-500" : "text-slate-400"}`}>
+					<div
+						className={`text-sm font-bold uppercase tracking-[0.18em] ${theme === "dark" ? "text-slate-500" : "text-slate-400"}`}
+					>
 						Why it matters
 					</div>
-					<ul className={`mt-3 space-y-2 ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}>
+					<ul
+						className={`mt-3 space-y-2 ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}
+					>
 						<li>Loading on: more playful and presentational.</li>
 						<li>Loading off: faster for exploration and repeat opens.</li>
 						<li>The setting is saved locally for the next visit.</li>
@@ -1137,10 +1282,18 @@ const SettingsContent = ({
 				}`}
 			>
 				<div>
-					<h3 className={theme === "dark" ? "font-bold text-white" : "font-bold text-slate-800"}>
+					<h3
+						className={
+							theme === "dark"
+								? "font-bold text-white"
+								: "font-bold text-slate-800"
+						}
+					>
 						Theme mode
 					</h3>
-					<p className={`mt-2 max-w-xl ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}>
+					<p
+						className={`mt-2 max-w-xl ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}
+					>
 						Choose a fixed theme or follow your device preference automatically.
 					</p>
 				</div>
@@ -1169,8 +1322,7 @@ const SettingsContent = ({
 							icon: ReactNode;
 						}>
 					).map((option) => {
-						const isSelected =
-							(themePreference ?? "light") === option.id;
+						const isSelected = (themePreference ?? "light") === option.id;
 
 						return (
 							<button
@@ -1191,7 +1343,9 @@ const SettingsContent = ({
 									{option.icon}
 									<span className="font-bold">{option.label}</span>
 								</div>
-								<div className={`mt-2 text-sm ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}>
+								<div
+									className={`mt-2 text-sm ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}
+								>
 									{option.id === "system"
 										? "Match your device setting."
 										: `Always use ${option.label.toLowerCase()} mode.`}
@@ -1207,7 +1361,9 @@ const SettingsContent = ({
 
 const MusicContent = ({ theme }: { theme: ThemeMode }) => {
 	const isDark = theme === "dark";
-	const [activeTrackId, setActiveTrackId] = useState<string>(MUSIC_TRACKS[0].id);
+	const [activeTrackId, setActiveTrackId] = useState<string>(
+		MUSIC_TRACKS[0].id,
+	);
 	const activeTrack =
 		MUSIC_TRACKS.find((track) => track.id === activeTrackId) ?? MUSIC_TRACKS[0];
 
@@ -1227,7 +1383,11 @@ const MusicContent = ({ theme }: { theme: ThemeMode }) => {
 							<motion.div
 								className={`absolute inset-0 rounded-full bg-gradient-to-br ${activeTrack.accent} blur-3xl opacity-30`}
 								animate={{ scale: [0.96, 1.04, 0.96] }}
-								transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
+								transition={{
+									duration: 3.8,
+									repeat: Infinity,
+									ease: "easeInOut",
+								}}
 							/>
 							<motion.div
 								className={`relative flex h-60 w-60 items-center justify-center rounded-full border-[10px] ${
@@ -1238,11 +1398,19 @@ const MusicContent = ({ theme }: { theme: ThemeMode }) => {
 								animate={{ rotate: 360 }}
 								transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
 							>
-								<div className={`absolute inset-8 rounded-full border ${isDark ? "border-white/8" : "border-slate-200/70"}`} />
-								<div className={`absolute h-26 w-26 rounded-full bg-gradient-to-br ${activeTrack.accent} opacity-70`} />
-								<div className={`relative flex h-20 w-20 items-center justify-center rounded-full border ${
-									isDark ? "border-white/10 bg-slate-950/85" : "border-white/90 bg-white/95"
-								}`}>
+								<div
+									className={`absolute inset-8 rounded-full border ${isDark ? "border-white/8" : "border-slate-200/70"}`}
+								/>
+								<div
+									className={`absolute h-26 w-26 rounded-full bg-gradient-to-br ${activeTrack.accent} opacity-70`}
+								/>
+								<div
+									className={`relative flex h-20 w-20 items-center justify-center rounded-full border ${
+										isDark
+											? "border-white/10 bg-slate-950/85"
+											: "border-white/90 bg-white/95"
+									}`}
+								>
 									<Disc3 className="h-10 w-10 text-white" />
 								</div>
 							</motion.div>
@@ -1260,15 +1428,22 @@ const MusicContent = ({ theme }: { theme: ThemeMode }) => {
 							<Volume2 className="h-4 w-4" />
 							Now Spinning
 						</div>
-						<h2 className={`mt-4 text-3xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}>
+						<h2
+							className={`mt-4 text-3xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}
+						>
 							{activeTrack.title}
 						</h2>
-						<p className={`mt-2 text-lg ${isDark ? "text-slate-300" : "text-slate-600"}`}>
+						<p
+							className={`mt-2 text-lg ${isDark ? "text-slate-300" : "text-slate-600"}`}
+						>
 							{activeTrack.artist}
 						</p>
-						<p className={`mt-4 max-w-xl ${isDark ? "text-slate-400" : "text-slate-500"}`}>
-							A stylized music placeholder with a featured track, visualizer motion,
-							and a queue designed to feel like a console-native media app.
+						<p
+							className={`mt-4 max-w-xl ${isDark ? "text-slate-400" : "text-slate-500"}`}
+						>
+							A stylized music placeholder with a featured track, visualizer
+							motion, and a queue designed to feel like a console-native media
+							app.
 						</p>
 
 						<div className="mt-6 flex flex-wrap gap-3">
@@ -1329,14 +1504,20 @@ const MusicContent = ({ theme }: { theme: ThemeMode }) => {
 				>
 					<div className="flex items-center justify-between">
 						<div>
-							<div className={`text-xs uppercase tracking-[0.18em] ${isDark ? "text-slate-500" : "text-slate-400"}`}>
+							<div
+								className={`text-xs uppercase tracking-[0.18em] ${isDark ? "text-slate-500" : "text-slate-400"}`}
+							>
 								Queue
 							</div>
-							<div className={`mt-2 text-2xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}>
+							<div
+								className={`mt-2 text-2xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}
+							>
 								Featured Tracks
 							</div>
 						</div>
-						<div className={`text-sm ${isDark ? "text-slate-500" : "text-slate-400"}`}>
+						<div
+							className={`text-sm ${isDark ? "text-slate-500" : "text-slate-400"}`}
+						>
 							{MUSIC_TRACKS.length} items
 						</div>
 					</div>
@@ -1378,14 +1559,20 @@ const MusicContent = ({ theme }: { theme: ThemeMode }) => {
 											/>
 										</div>
 										<div className="min-w-0 flex-1">
-											<div className={`font-bold ${isDark ? "text-slate-100" : "text-slate-800"}`}>
+											<div
+												className={`font-bold ${isDark ? "text-slate-100" : "text-slate-800"}`}
+											>
 												{track.title}
 											</div>
-											<div className={`mt-1 text-sm ${isDark ? "text-slate-400" : "text-slate-500"}`}>
+											<div
+												className={`mt-1 text-sm ${isDark ? "text-slate-400" : "text-slate-500"}`}
+											>
 												{track.artist}
 											</div>
 										</div>
-										<div className={`text-sm ${isDark ? "text-slate-500" : "text-slate-400"}`}>
+										<div
+											className={`text-sm ${isDark ? "text-slate-500" : "text-slate-400"}`}
+										>
 											{track.length}
 										</div>
 									</div>
@@ -1404,14 +1591,20 @@ const MusicContent = ({ theme }: { theme: ThemeMode }) => {
 				>
 					<div className="flex items-center justify-between">
 						<div>
-							<div className={`text-xs uppercase tracking-[0.18em] ${isDark ? "text-slate-500" : "text-slate-400"}`}>
+							<div
+								className={`text-xs uppercase tracking-[0.18em] ${isDark ? "text-slate-500" : "text-slate-400"}`}
+							>
 								Status
 							</div>
-							<div className={`mt-2 text-2xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}>
+							<div
+								className={`mt-2 text-2xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}
+							>
 								Listening Room
 							</div>
 						</div>
-						<div className={`rounded-full px-3 py-1 text-sm font-bold bg-gradient-to-r ${activeTrack.accent} text-white`}>
+						<div
+							className={`rounded-full px-3 py-1 text-sm font-bold bg-gradient-to-r ${activeTrack.accent} text-white`}
+						>
 							Live
 						</div>
 					</div>
@@ -1421,7 +1614,10 @@ const MusicContent = ({ theme }: { theme: ThemeMode }) => {
 							["Output", "GamePad speakers"],
 							["Preset", "Soft vinyl shimmer"],
 							["Session", "Visualizer enabled"],
-							["Theme sync", isDark ? "Night listening mode" : "Day listening mode"],
+							[
+								"Theme sync",
+								isDark ? "Night listening mode" : "Day listening mode",
+							],
 						].map(([label, value]) => (
 							<div
 								key={label}
@@ -1431,10 +1627,14 @@ const MusicContent = ({ theme }: { theme: ThemeMode }) => {
 										: "border-white/80 bg-white/60 text-slate-600"
 								}`}
 							>
-								<span className={`text-sm uppercase tracking-[0.14em] ${isDark ? "text-slate-500" : "text-slate-400"}`}>
+								<span
+									className={`text-sm uppercase tracking-[0.14em] ${isDark ? "text-slate-500" : "text-slate-400"}`}
+								>
 									{label}
 								</span>
-								<span className={`font-bold ${isDark ? "text-slate-100" : "text-slate-800"}`}>
+								<span
+									className={`font-bold ${isDark ? "text-slate-100" : "text-slate-800"}`}
+								>
 									{value}
 								</span>
 							</div>
@@ -1448,9 +1648,12 @@ const MusicContent = ({ theme }: { theme: ThemeMode }) => {
 
 const GamesContent = ({ theme }: { theme: ThemeMode }) => {
 	const isDark = theme === "dark";
-	const [selectedGameId, setSelectedGameId] = useState<string>(GAME_PREVIEWS[0].id);
+	const [selectedGameId, setSelectedGameId] = useState<string>(
+		GAME_PREVIEWS[0].id,
+	);
 	const activeGame =
-		GAME_PREVIEWS.find((game) => game.id === selectedGameId) ?? GAME_PREVIEWS[0];
+		GAME_PREVIEWS.find((game) => game.id === selectedGameId) ??
+		GAME_PREVIEWS[0];
 
 	return (
 		<div className="h-full overflow-y-auto p-6 wii-u-scrollbar">
@@ -1494,9 +1697,21 @@ const GamesContent = ({ theme }: { theme: ThemeMode }) => {
 
 					<div className="grid grid-cols-3 gap-3">
 						{[
-							{ label: "Concepts", value: "03", icon: <Sparkles className="h-4 w-4" /> },
-							{ label: "Badges", value: "12", icon: <Trophy className="h-4 w-4" /> },
-							{ label: "Power", value: "89%", icon: <Zap className="h-4 w-4" /> },
+							{
+								label: "Concepts",
+								value: "03",
+								icon: <Sparkles className="h-4 w-4" />,
+							},
+							{
+								label: "Badges",
+								value: "12",
+								icon: <Trophy className="h-4 w-4" />,
+							},
+							{
+								label: "Power",
+								value: "89%",
+								icon: <Zap className="h-4 w-4" />,
+							},
 						].map((item) => (
 							<div
 								key={item.label}
@@ -1551,22 +1766,32 @@ const GamesContent = ({ theme }: { theme: ThemeMode }) => {
 											className="object-cover transition-transform duration-500 group-hover:scale-105"
 											referrerPolicy="no-referrer"
 										/>
-										<div className={`absolute inset-0 bg-gradient-to-t ${isDark ? "from-slate-950/80 via-slate-950/20 to-transparent" : "from-slate-900/45 via-transparent to-transparent"}`} />
+										<div
+											className={`absolute inset-0 bg-gradient-to-t ${isDark ? "from-slate-950/80 via-slate-950/20 to-transparent" : "from-slate-900/45 via-transparent to-transparent"}`}
+										/>
 										<div className="absolute right-3 bottom-3">
-											<span className={`rounded-full bg-gradient-to-r ${game.accent} px-3 py-1 text-xs font-bold text-white shadow-lg`}>
+											<span
+												className={`rounded-full bg-gradient-to-r ${game.accent} px-3 py-1 text-xs font-bold text-white shadow-lg`}
+											>
 												{game.state}
 											</span>
 										</div>
 									</div>
 									<div className="flex flex-col justify-between">
 										<div>
-											<div className={`text-xs uppercase tracking-[0.18em] ${isDark ? "text-sky-300" : "text-sky-700"}`}>
+											<div
+												className={`text-xs uppercase tracking-[0.18em] ${isDark ? "text-sky-300" : "text-sky-700"}`}
+											>
 												{game.tagline}
 											</div>
-											<h3 className={`mt-2 text-2xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}>
+											<h3
+												className={`mt-2 text-2xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}
+											>
 												{game.title}
 											</h3>
-											<p className={`mt-3 ${isDark ? "text-slate-400" : "text-slate-500"}`}>
+											<p
+												className={`mt-3 ${isDark ? "text-slate-400" : "text-slate-500"}`}
+											>
 												{game.description}
 											</p>
 										</div>
@@ -1602,14 +1827,20 @@ const GamesContent = ({ theme }: { theme: ThemeMode }) => {
 					<div className="relative">
 						<div className="flex items-center justify-between">
 							<div>
-								<div className={`text-xs uppercase tracking-[0.18em] ${isDark ? "text-slate-500" : "text-slate-400"}`}>
+								<div
+									className={`text-xs uppercase tracking-[0.18em] ${isDark ? "text-slate-500" : "text-slate-400"}`}
+								>
 									Preview Deck
 								</div>
-								<div className={`mt-2 text-2xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}>
+								<div
+									className={`mt-2 text-2xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}
+								>
 									{activeGame.title}
 								</div>
 							</div>
-							<div className={`rounded-full px-3 py-1 text-sm font-bold bg-gradient-to-r ${activeGame.accent} text-white`}>
+							<div
+								className={`rounded-full px-3 py-1 text-sm font-bold bg-gradient-to-r ${activeGame.accent} text-white`}
+							>
 								{activeGame.state}
 							</div>
 						</div>
@@ -1620,12 +1851,22 @@ const GamesContent = ({ theme }: { theme: ThemeMode }) => {
 								animate={{ rotate: 360 }}
 								transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
 							>
-								<div className={`absolute inset-3 rounded-full border ${isDark ? "border-sky-200/10" : "border-sky-200/40"}`} />
-								<div className={`absolute inset-10 rounded-full border ${isDark ? "border-white/8" : "border-white/70"}`} />
-								<div className={`absolute h-26 w-26 rounded-full bg-gradient-to-br ${activeGame.accent} blur-xl opacity-35`} />
-								<div className={`relative flex h-24 w-24 items-center justify-center rounded-full border ${
-									isDark ? "border-sky-200/15 bg-slate-950/80" : "border-white/90 bg-white/80"
-								}`}>
+								<div
+									className={`absolute inset-3 rounded-full border ${isDark ? "border-sky-200/10" : "border-sky-200/40"}`}
+								/>
+								<div
+									className={`absolute inset-10 rounded-full border ${isDark ? "border-white/8" : "border-white/70"}`}
+								/>
+								<div
+									className={`absolute h-26 w-26 rounded-full bg-gradient-to-br ${activeGame.accent} blur-xl opacity-35`}
+								/>
+								<div
+									className={`relative flex h-24 w-24 items-center justify-center rounded-full border ${
+										isDark
+											? "border-sky-200/15 bg-slate-950/80"
+											: "border-white/90 bg-white/80"
+									}`}
+								>
 									<Gamepad2 className="h-10 w-10 text-sky-400" />
 								</div>
 							</motion.div>
@@ -1645,10 +1886,14 @@ const GamesContent = ({ theme }: { theme: ThemeMode }) => {
 											: "border-white/80 bg-white/65 text-slate-600"
 									}`}
 								>
-									<span className={`text-sm uppercase tracking-[0.14em] ${isDark ? "text-slate-500" : "text-slate-400"}`}>
+									<span
+										className={`text-sm uppercase tracking-[0.14em] ${isDark ? "text-slate-500" : "text-slate-400"}`}
+									>
 										{label}
 									</span>
-									<span className={`font-bold ${isDark ? "text-slate-100" : "text-slate-800"}`}>
+									<span
+										className={`font-bold ${isDark ? "text-slate-100" : "text-slate-800"}`}
+									>
 										{value}
 									</span>
 								</div>
