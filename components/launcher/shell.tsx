@@ -1,10 +1,10 @@
 "use client";
 
+import { InitialBootOverlay } from "@/components/launcher/overlays";
+import type { AppData, AppId, ThemeMode } from "@/components/launcher/types";
 import { Moon, Sun, User, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import type { ReactNode } from "react";
-import { InitialBootOverlay } from "@/components/launcher/overlays";
-import type { AppData, AppId, ThemeMode } from "@/components/launcher/types";
 
 type LauncherShellProps = {
 	theme: ThemeMode;
@@ -15,9 +15,10 @@ type LauncherShellProps = {
 	showBootOverlay: boolean;
 	onOpenApp: (id: AppId) => void;
 	onCloseApp: () => void;
-	onToggleTheme: () => void;
+	onQuickThemeToggle: () => void;
 	appContent: ReactNode;
 	loadingContent: ReactNode;
+	themePickerOverlay?: ReactNode;
 };
 
 export function LauncherShell({
@@ -29,9 +30,10 @@ export function LauncherShell({
 	showBootOverlay,
 	onOpenApp,
 	onCloseApp,
-	onToggleTheme,
+	onQuickThemeToggle,
 	appContent,
 	loadingContent,
+	themePickerOverlay,
 }: LauncherShellProps) {
 	return (
 		<main
@@ -104,8 +106,10 @@ export function LauncherShell({
 				<div className="flex items-center gap-3">
 					<button
 						type="button"
-						onClick={onToggleTheme}
-						aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+						onClick={onQuickThemeToggle}
+						aria-label={
+							theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+						}
 						className="wii-u-round-button inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-white/80 transition-transform hover:-translate-y-0.5"
 					>
 						{theme === "dark" ? (
@@ -178,18 +182,15 @@ export function LauncherShell({
 					<span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
 					System Online
 				</div>
-				<div className={`text-xs ${theme === "dark" ? "text-slate-500" : "text-slate-400"}`}>
+				<div
+					className={`text-xs ${theme === "dark" ? "text-slate-500" : "text-slate-400"}`}
+				>
 					v1.0.0
 				</div>
 			</div>
 
-			<div className="absolute bottom-6 left-6 z-10">
-				<div className="wii-u-home-button flex h-12 w-12 items-center justify-center rounded-full border border-white/15 text-xl font-medium text-white/90 shadow-lg">
-					N
-				</div>
-			</div>
-
 			{showBootOverlay && <InitialBootOverlay theme={theme} />}
+			{themePickerOverlay}
 
 			<AnimatePresence>
 				{activeAppData && (

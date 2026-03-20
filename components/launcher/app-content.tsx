@@ -19,6 +19,7 @@ import type {
 	AppId,
 	SettingsContentProps,
 	ThemeMode,
+	ThemePreference,
 } from "@/components/launcher/types";
 
 type ProjectRecord = {
@@ -923,9 +924,10 @@ const ContactContent = ({ theme }: { theme: ThemeMode }) => {
 
 const SettingsContent = ({
 	theme,
+	themePreference,
 	loadingScreensEnabled,
 	onToggleLoadingScreens,
-	onToggleTheme,
+	onSetThemePreference,
 }: SettingsContentProps) => (
 	<div
 		className={`h-full overflow-y-auto p-6 wii-u-scrollbar ${
@@ -1039,33 +1041,69 @@ const SettingsContent = ({
 					theme === "dark" ? "border-white/8" : "border-white/70"
 				}`}
 			>
-				<div className="flex items-start justify-between gap-4">
-					<div>
-						<h3 className={theme === "dark" ? "font-bold text-white" : "font-bold text-slate-800"}>
-							Theme mode
-						</h3>
-						<p className={`mt-2 max-w-xl ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}>
-							Switch between the bright Wii U dashboard and a darker night-mode variation.
-						</p>
-					</div>
+				<div>
+					<h3 className={theme === "dark" ? "font-bold text-white" : "font-bold text-slate-800"}>
+						Theme mode
+					</h3>
+					<p className={`mt-2 max-w-xl ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}>
+						Choose a fixed theme or follow your device preference automatically.
+					</p>
+				</div>
 
-					<button
-						type="button"
-						onClick={onToggleTheme}
-						className="wii-u-round-button inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/80 px-4 py-3 transition-transform hover:-translate-y-0.5"
-					>
-						{theme === "dark" ? (
-							<>
-								<Sun className="h-5 w-5 text-amber-400" />
-								<span className="text-slate-100">Switch to light</span>
-							</>
-						) : (
-							<>
-								<Moon className="h-5 w-5 text-slate-700" />
-								<span className="text-slate-700">Switch to dark</span>
-							</>
-						)}
-					</button>
+				<div className="mt-5 grid gap-3 md:grid-cols-3">
+					{(
+						[
+							{
+								id: "light",
+								label: "Light",
+								icon: <Sun className="h-5 w-5 text-amber-400" />,
+							},
+							{
+								id: "dark",
+								label: "Dark",
+								icon: <Moon className="h-5 w-5 text-sky-300" />,
+							},
+							{
+								id: "system",
+								label: "System",
+								icon: <Settings className="h-5 w-5 text-emerald-400" />,
+							},
+						] satisfies Array<{
+							id: ThemePreference;
+							label: string;
+							icon: ReactNode;
+						}>
+					).map((option) => {
+						const isSelected =
+							(themePreference ?? "light") === option.id;
+
+						return (
+							<button
+								key={option.id}
+								type="button"
+								onClick={() => onSetThemePreference(option.id)}
+								className={`cursor-pointer rounded-2xl border p-4 text-left transition-all ${
+									isSelected
+										? theme === "dark"
+											? "border-sky-300/30 bg-sky-400/10 text-slate-100"
+											: "border-sky-200 bg-sky-50 text-slate-800"
+										: theme === "dark"
+											? "border-white/8 bg-slate-950/30 text-slate-300 hover:border-sky-200/15"
+											: "border-white/80 bg-white/45 text-slate-600 hover:border-sky-100"
+								}`}
+							>
+								<div className="flex items-center gap-3">
+									{option.icon}
+									<span className="font-bold">{option.label}</span>
+								</div>
+								<div className={`mt-2 text-sm ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}>
+									{option.id === "system"
+										? "Match your device setting."
+										: `Always use ${option.label.toLowerCase()} mode.`}
+								</div>
+							</button>
+						);
+					})}
 				</div>
 			</div>
 		</div>

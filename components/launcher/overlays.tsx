@@ -1,8 +1,13 @@
 "use client";
 
-import { User } from "lucide-react";
+import { Monitor, Moon, Sun, User } from "lucide-react";
 import { motion } from "motion/react";
-import type { AppData, ThemeMode } from "@/components/launcher/types";
+import type { ReactNode } from "react";
+import type {
+	AppData,
+	ThemeMode,
+	ThemePreference,
+} from "@/components/launcher/types";
 
 export function InitialBootOverlay({ theme }: { theme: ThemeMode }) {
 	return (
@@ -175,6 +180,110 @@ export function LoadingContent({
 					</div>
 				</motion.div>
 			</div>
+		</div>
+	);
+}
+
+export function ThemePickerOverlay({
+	theme,
+	onSelect,
+}: {
+	theme: ThemeMode;
+	onSelect: (preference: ThemePreference) => void;
+}) {
+	const options: Array<{
+		id: ThemePreference;
+		title: string;
+		description: string;
+		icon: ReactNode;
+	}> = [
+		{
+			id: "light",
+			title: "Light",
+			description: "Bright dashboard with the classic clean Wii U feel.",
+			icon: <Sun className="h-6 w-6 text-amber-400" />,
+		},
+		{
+			id: "dark",
+			title: "Dark",
+			description: "Night-mode shell with smoked glass and deeper contrast.",
+			icon: <Moon className="h-6 w-6 text-sky-300" />,
+		},
+		{
+			id: "system",
+			title: "System",
+			description: "Follow your device preference automatically.",
+			icon: <Monitor className="h-6 w-6 text-emerald-400" />,
+		},
+	];
+
+	return (
+		<div className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/45 p-6 backdrop-blur-xl">
+			<motion.div
+				initial={{ opacity: 0, y: 12, scale: 0.96 }}
+				animate={{ opacity: 1, y: 0, scale: 1 }}
+				className={`wii-u-window w-full max-w-3xl border p-6 ${
+					theme === "dark" ? "border-sky-200/10" : "border-white/85"
+				}`}
+			>
+				<div className="text-center">
+					<div
+						className={`text-sm font-bold uppercase tracking-[0.18em] ${
+							theme === "dark" ? "text-sky-300" : "text-sky-700"
+						}`}
+					>
+						First Visit
+					</div>
+					<h2
+						className={`mt-3 text-3xl font-bold ${
+							theme === "dark" ? "text-white" : "text-slate-800"
+						}`}
+					>
+						Choose Your Theme
+					</h2>
+					<p
+						className={`mx-auto mt-3 max-w-xl ${
+							theme === "dark" ? "text-slate-400" : "text-slate-500"
+						}`}
+					>
+						Pick how the launcher should look. You can change this later from
+						System Settings.
+					</p>
+				</div>
+
+				<div className="mt-8 grid gap-4 md:grid-cols-3">
+					{options.map((option) => (
+						<button
+							key={option.id}
+							type="button"
+							onClick={() => onSelect(option.id)}
+							className={`group cursor-pointer rounded-[28px] border p-5 text-left transition-all hover:-translate-y-1 ${
+								theme === "dark"
+									? "bg-slate-900/60 border-sky-200/10 hover:border-sky-200/20 hover:bg-slate-900/80"
+									: "bg-white/70 border-white/85 hover:shadow-lg"
+							}`}
+						>
+							<div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-sm">
+								{option.icon}
+							</div>
+							<div
+								className={`mt-5 text-xl font-bold ${
+									theme === "dark" ? "text-white" : "text-slate-800"
+								}`}
+							>
+								{option.title}
+							</div>
+							<p
+								className={`mt-2 text-sm ${
+									theme === "dark" ? "text-slate-400" : "text-slate-500"
+								}`}
+							>
+								{option.description}
+							</p>
+						</button>
+					))}
+				</div>
+			</motion.div>
 		</div>
 	);
 }

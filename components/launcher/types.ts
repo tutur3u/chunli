@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 export type ThemeMode = "light" | "dark";
+export type ThemePreference = ThemeMode | "system";
 
 export type AppId =
 	| "about"
@@ -21,7 +22,8 @@ export type AppData = {
 
 export type SettingsContentProps = {
 	theme: ThemeMode;
+	themePreference: ThemePreference | null;
 	loadingScreensEnabled: boolean;
 	onToggleLoadingScreens: () => void;
-	onToggleTheme: () => void;
+	onSetThemePreference: (preference: ThemePreference) => void;
 };
