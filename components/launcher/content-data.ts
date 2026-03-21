@@ -284,6 +284,39 @@ export const GAME_PREVIEWS: GamePreview[] = [
 		role: "Game Designer, Game Developer, Artist",
 		year: "2025",
 	},
+	{
+		id: "remedy",
+		title: "Remedy",
+		tagline: "Prototype, Puzzle, Experimental, Jam, Solo Dev",
+		state: "Completed",
+		accent: "from-violet-400 via-purple-500 to-indigo-600",
+		seed: "remedy",
+		description:
+			"Remedy is a puzzle adventure game where a teacher and a mysterious young high school student find themselves waking up in an unknown room. The narrative delves into themes of loss and the journey of moving on.",
+		features: [
+			"Experimenting with RPG Maker MZ",
+			"Puzzle genre exploration",
+			"Chain Reaction game jam theme",
+			"Narrative-driven experience",
+		],
+		genres: ["Prototype", "Puzzle", "Experimental", "Jam", "Solo Dev"],
+		videoUrl: "https://www.youtube.com/embed/lFhr36BS3LY",
+		screenshots: {
+			gameplay: [
+				"/media/portfolio/games/remedy/gameplay/1.png",
+				"/media/portfolio/games/remedy/gameplay/2.png",
+				"/media/portfolio/games/remedy/gameplay/3.png",
+				"/media/portfolio/games/remedy/gameplay/4.png",
+				"/media/portfolio/games/remedy/gameplay/5.png",
+				"/media/portfolio/games/remedy/gameplay/6.png",
+				"/media/portfolio/games/remedy/gameplay/7.png",
+			],
+		},
+		playUrl: "https://jjunly.itch.io/remedy",
+		tools: ["RPG Maker MZ", "Aseprite"],
+		role: "Game Designer, Game Developer, Artist",
+		year: "2024",
+	},
 ];
 
 export const MUSIC_TRACKS: MusicTrack[] = [
