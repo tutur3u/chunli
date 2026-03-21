@@ -263,7 +263,7 @@ export const GAME_PREVIEWS: GamePreview[] = [
 		accent: "from-fuchsia-400 via-pink-400 to-rose-300",
 		seed: "kawaii-mario",
 		description:
-			"Mamma mia — a 1 week game jam甜品店 adventure. Help Mario navigate this kawaii sweet treat journey in this point-and-click fangame.",
+			"Mamma mia — a 1 week game jam adventure with the theme: 10-second game. Help Mario navigate this kawaii sweet treat journey in this point-and-click fangame.",
 		features: [
 			"Point and click gameplay",
 			"Mario fangame",
