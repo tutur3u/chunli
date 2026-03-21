@@ -36,6 +36,17 @@ export type GamePreview = {
 	seed: string;
 	description: string;
 	features: string[];
+	genres: string[];
+	videoUrl?: string;
+	gddUrl?: string;
+	screenshots?: {
+		gameplay: string[];
+		bts?: string[];
+	};
+	playUrl?: string;
+	tools?: string[];
+	role?: string;
+	year?: string;
 };
 
 export type MusicTrack = {
@@ -179,6 +190,38 @@ export const POSTS: FeedPost[] = [
 
 export const GAME_PREVIEWS: GamePreview[] = [
 	{
+		id: "asphyxiated",
+		title: "Asphyxiated",
+		tagline: "2D Platformer — Team Project",
+		state: "Completed",
+		accent: "from-emerald-400 via-teal-500 to-cyan-500",
+		seed: "asphyxiated",
+		description:
+			"A post-apocalypse platformer where you play as the keeper of the Seed Vault, fighting to restore the green planet you once called home. Built for the Serious Games for Environment theme.",
+		features: ["Environmental narrative", "Post-apocalypse world", "Seed Vault progression", "Atmospheric platforming"],
+		genres: ["2D Platformer", "Environmental", "Team Project"],
+		videoUrl: "https://www.youtube.com/embed/nlDw83RSUSU",
+		gddUrl: "https://drive.google.com/uc?export=download&id=1OisrUjFteUwJYaQ_UhtHfs2yeAvwNCEF",
+		screenshots: {
+			gameplay: [
+				"/media/portfolio/games/asphyxiated/gameplay/1.png",
+				"/media/portfolio/games/asphyxiated/gameplay/2.png",
+				"/media/portfolio/games/asphyxiated/gameplay/3.png",
+				"/media/portfolio/games/asphyxiated/gameplay/4.png",
+				"/media/portfolio/games/asphyxiated/gameplay/5.png",
+				"/media/portfolio/games/asphyxiated/gameplay/6.png",
+			],
+			bts: [
+				"/media/portfolio/games/asphyxiated/behind-the-scenes/1.png",
+				"/media/portfolio/games/asphyxiated/behind-the-scenes/2.png",
+			],
+		},
+		playUrl: "https://zuutheturtlecat.itch.io/asphyxiated",
+		tools: ["Unity", "Aseprite"],
+		role: "Game Designer, Game Artist",
+		year: "2024",
+	},
+	{
 		id: "sky-arena",
 		title: "Sky Arena",
 		tagline: "Floating battle prototype",
@@ -188,6 +231,7 @@ export const GAME_PREVIEWS: GamePreview[] = [
 		description:
 			"A fast arcade concept set above a cloud city, focused on readable effects, buoyant movement, and bright competitive energy.",
 		features: ["3 arenas", "Local duel mode", "Reactive weather FX"],
+		genres: ["Arcade", "Battle", "Local Multiplayer"],
 	},
 	{
 		id: "neon-kart",
@@ -199,6 +243,7 @@ export const GAME_PREVIEWS: GamePreview[] = [
 		description:
 			"A playful racing placeholder built around luminous tracks, chunky UI, and toy-like vehicle silhouettes.",
 		features: ["6 track concepts", "Boost meter HUD", "Replay camera ideas"],
+		genres: ["Racing", "Stylized"],
 	},
 	{
 		id: "pixel-dojo",
@@ -210,6 +255,7 @@ export const GAME_PREVIEWS: GamePreview[] = [
 		description:
 			"A score-attack prototype framed like a console training room, mixing compact challenges with collectible mastery badges.",
 		features: ["Trial ladders", "Badge unlocks", "Daily challenge slot"],
+		genres: ["Training", "Score Attack", "Pixel Art"],
 	},
 ];
 
