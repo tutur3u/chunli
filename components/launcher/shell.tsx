@@ -152,8 +152,15 @@ export function LauncherShell({
 									{app.icon}
 								</div>
 							</button>
+							<span
+								className={`mt-2 text-center text-xs font-bold sm:hidden ${
+									theme === "dark" ? "text-slate-300" : "text-slate-600"
+								}`}
+							>
+								{app.title}
+							</span>
 							<div
-								className={`absolute left-1/2 top-full mt-3 z-20 -translate-x-1/2 rounded-full border px-3 py-1.5 text-sm font-bold whitespace-nowrap opacity-0 shadow-md transition-opacity backdrop-blur-sm group-hover:opacity-100 ${
+								className={`absolute left-1/2 top-full mt-3 z-20 -translate-x-1/2 rounded-full border px-3 py-1.5 text-sm font-bold whitespace-nowrap opacity-0 shadow-md transition-opacity backdrop-blur-sm hidden md:block group-hover:opacity-100 ${
 									theme === "dark"
 										? "bg-slate-950/90 text-slate-100 border-sky-100/20"
 										: "bg-white/95 text-slate-700 border-white/60 shadow-lg"
