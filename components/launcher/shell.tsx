@@ -279,9 +279,9 @@ export function LauncherShell({
 									: "bg-white sm:bg-white/95 border-b border-gray-200 sm:border-b-0"
 							}`}>
 								<div className="flex items-center gap-3">
-									<div
-										className={`flex h-10 w-10 items-center justify-center rounded-full border border-white/90 shadow-inner ${activeAppData.color}`}
-									>
+									<div className={`flex h-10 w-10 items-center justify-center ${
+										theme === "dark" ? "text-white" : "text-slate-700"
+									}`}>
 										<div className="scale-[0.56]">{activeAppData.icon}</div>
 									</div>
 									<span
