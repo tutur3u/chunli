@@ -198,22 +198,14 @@ export function LauncherShell({
 							<button
 								type="button"
 								onClick={() => onOpenApp(app.id)}
-								className={`app-icon flex h-28 w-28 cursor-pointer items-center justify-center rounded-2xl ${
-									theme === "dark"
-										? "bg-slate-800"
-										: "bg-white"
-								} shadow-lg hover:scale-105 active:scale-95 transition-transform duration-300 sm:h-40 sm:w-40`}
+								className={`app-icon flex h-28 w-28 cursor-pointer items-center justify-center rounded-2xl bg-gradient-to-br ${app.accent} shadow-lg hover:scale-105 active:scale-95 transition-transform duration-300 sm:h-40 sm:w-40`}
 							>
-								<div className={`text-[2.5rem] sm:text-[3.5rem] ${
-									theme === "dark" ? "text-white" : "text-slate-700"
-								}`}>
+								<div className="text-white drop-shadow-md text-[2.5rem] sm:text-[3.5rem]">
 									{app.icon}
 								</div>
 							</button>
 							<span
-								className={`mt-2 text-center text-sm font-bold sm:text-lg md:text-xl ${
-									theme === "dark" ? "text-slate-100" : "text-slate-700"
-								}`}
+								className={`mt-2 text-center text-sm font-bold sm:text-lg md:text-xl bg-clip-text text-transparent bg-gradient-to-br ${app.accent}`}
 							>
 								{app.title}
 							</span>
