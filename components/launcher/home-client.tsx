@@ -45,6 +45,7 @@ export default function HomeClient() {
 	const [isBooting, setIsBooting] = useState(true);
 	const [isHydrated, setIsHydrated] = useState(false);
 	const [currentTime, setCurrentTime] = useState("");
+	const [currentDate, setCurrentDate] = useState("");
 	const theme = useSyncExternalStore<ThemeMode>(
 		subscribeToThemePreference,
 		getThemeSnapshot,
@@ -68,6 +69,9 @@ export default function HomeClient() {
 			const now = new Date();
 			setCurrentTime(
 				now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+			);
+			setCurrentDate(
+				now.toLocaleDateString([], { weekday: "short", month: "short", day: "numeric" }),
 			);
 		};
 
@@ -194,6 +198,7 @@ export default function HomeClient() {
 		<LauncherShell
 			theme={resolvedTheme}
 			currentTime={currentTime}
+			currentDate={currentDate}
 			apps={apps}
 			activeAppData={activeAppData}
 			isLoading={isLoading}

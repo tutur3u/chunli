@@ -7,9 +7,20 @@ import { Moon, Sun, User, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import type { ReactNode } from "react";
 
+function AnimatedSeparator() {
+	return (
+		<div className="flex items-center gap-1">
+			<div className="h-1 w-1 rotate-45 bg-current opacity-40" />
+			<div className="h-1 w-1 rotate-45 bg-current opacity-60" />
+			<div className="h-1 w-1 rotate-45 bg-current opacity-40" />
+		</div>
+	);
+}
+
 type LauncherShellProps = {
 	theme: ThemeMode;
 	currentTime: string;
+	currentDate: string;
 	apps: AppData[];
 	activeAppData?: AppData;
 	isLoading: boolean;
@@ -25,6 +36,7 @@ type LauncherShellProps = {
 export function LauncherShell({
 	theme,
 	currentTime,
+	currentDate,
 	apps,
 	activeAppData,
 	isLoading,
@@ -139,12 +151,30 @@ export function LauncherShell({
 							<Moon className="h-5 w-5 text-slate-700" />
 						)}
 					</button>
-					<div
-						className={`text-[1rem] font-medium tracking-wide ${
-							theme === "dark" ? "text-slate-400" : "text-slate-500"
-						}`}
-					>
-						{currentTime}
+					<div className="flex items-center gap-4">
+						<div
+							className={`text-[1rem] font-medium tracking-wide ${
+								theme === "dark" ? "text-slate-400" : "text-slate-500"
+							}`}
+						>
+							{currentDate}
+						</div>
+						<AnimatedSeparator />
+						<div
+							className={`text-[1rem] font-medium tracking-wide ${
+								theme === "dark" ? "text-slate-400" : "text-slate-500"
+							}`}
+						>
+							{currentTime}
+						</div>
+						<AnimatedSeparator />
+						<div
+							className={`text-[0.85rem] font-medium tracking-wide ${
+								theme === "dark" ? "text-slate-500" : "text-slate-400"
+							}`}
+						>
+							{new Date().getFullYear()}
+						</div>
 					</div>
 				</div>
 			</header>
@@ -215,6 +245,15 @@ export function LauncherShell({
 					className={`text-xs ${theme === "dark" ? "text-slate-500" : "text-slate-400"}`}
 				>
 					v1.0.0
+				</div>
+				<div
+					className={`flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium ${
+						theme === "dark" 
+							? "bg-slate-800/80 border border-slate-700/50 text-slate-300" 
+							: "bg-white/80 border border-white/80 text-slate-600"
+					}`}
+				>
+					{new Date().getFullYear()}
 				</div>
 			</div>
 
