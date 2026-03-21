@@ -128,8 +128,8 @@ export function LauncherShell({
 				</div>
 			</header>
 
-			<div className="absolute inset-0 flex items-center justify-center px-8 pt-24 pb-24 md:px-20">
-				<div className="grid w-full max-w-6xl grid-cols-2 place-items-center gap-x-10 gap-y-8 sm:grid-cols-3 md:grid-cols-4 md:gap-x-18 md:gap-y-8">
+			<div className="absolute inset-0 overflow-y-auto px-6 pt-20 pb-24 md:overflow-hidden md:flex md:items-center md:justify-center md:px-20">
+				<div className="grid w-full max-w-6xl grid-cols-3 place-items-center gap-x-6 gap-y-6 sm:grid-cols-3 md:grid-cols-4 md:gap-x-24 md:gap-y-12">
 					{apps.map((app, index) => (
 						<motion.div
 							key={app.id}

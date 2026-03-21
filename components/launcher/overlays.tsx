@@ -218,11 +218,11 @@ export function ThemePickerOverlay({
 	];
 
 	return (
-		<div className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/45 p-6 backdrop-blur-xl">
+		<div className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/45 p-4 sm:p-6 backdrop-blur-xl overflow-y-auto">
 			<motion.div
 				initial={{ opacity: 0, y: 12, scale: 0.96 }}
 				animate={{ opacity: 1, y: 0, scale: 1 }}
-				className={`wii-u-window w-full max-w-3xl border p-6 ${
+				className={`wii-u-window w-full max-w-3xl border p-6 my-4 ${
 					theme === "dark" ? "border-sky-200/10" : "border-white/85"
 				}`}
 			>
@@ -235,14 +235,14 @@ export function ThemePickerOverlay({
 						First Visit
 					</div>
 					<h2
-						className={`mt-3 text-3xl font-bold ${
+						className={`mt-3 text-2xl sm:text-3xl font-bold ${
 							theme === "dark" ? "text-white" : "text-slate-800"
 						}`}
 					>
 						Choose Your Theme
 					</h2>
 					<p
-						className={`mx-auto mt-3 max-w-xl ${
+						className={`mx-auto mt-3 max-w-xl text-sm sm:text-base ${
 							theme === "dark" ? "text-slate-400" : "text-slate-500"
 						}`}
 					>
@@ -251,30 +251,30 @@ export function ThemePickerOverlay({
 					</p>
 				</div>
 
-				<div className="mt-8 grid gap-4 md:grid-cols-3">
+				<div className="mt-6 sm:mt-8 grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-3">
 					{options.map((option) => (
 						<button
 							key={option.id}
 							type="button"
 							onClick={() => onSelect(option.id)}
-							className={`group cursor-pointer rounded-[28px] border p-5 text-left transition-all hover:-translate-y-1 ${
+							className={`group cursor-pointer rounded-[28px] border p-4 sm:p-5 text-left transition-all hover:-translate-y-1 ${
 								theme === "dark"
 									? "bg-slate-900/60 border-sky-200/10 hover:border-sky-200/20 hover:bg-slate-900/80"
 									: "bg-white/70 border-white/85 hover:shadow-lg"
 							}`}
 						>
-							<div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-sm">
+							<div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-sm">
 								{option.icon}
 							</div>
 							<div
-								className={`mt-5 text-xl font-bold ${
+								className={`mt-4 sm:mt-5 text-lg sm:text-xl font-bold ${
 									theme === "dark" ? "text-white" : "text-slate-800"
 								}`}
 							>
 								{option.title}
 							</div>
 							<p
-								className={`mt-2 text-sm ${
+								className={`mt-2 text-xs sm:text-sm ${
 									theme === "dark" ? "text-slate-400" : "text-slate-500"
 								}`}
 							>
