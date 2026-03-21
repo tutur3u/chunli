@@ -249,8 +249,8 @@ export function LauncherShell({
 						exit={{ opacity: 0 }}
 						className={`fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-6 lg:p-8 ${
 							theme === "dark"
-								? "bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.12),transparent_30%),rgba(2,6,23,0.72)]"
-								: "bg-slate-900/20"
+								? "bg-black/90"
+								: "bg-black/70"
 						}`}
 						onClick={onCloseApp}
 					>
@@ -259,8 +259,8 @@ export function LauncherShell({
 							animate={{ scale: 1, y: 0, opacity: 1 }}
 							exit={{ scale: 0.9, y: 20, opacity: 0 }}
 							transition={{ type: "spring", stiffness: 300, damping: 25 }}
-							className={`relative flex h-full w-full flex-col overflow-hidden sm:inset-auto sm:h-[88vh] sm:min-h-[720px] sm:w-full sm:max-w-[1480px] sm:rounded-[34px] ${
-								theme === "dark" ? "bg-slate-900" : "bg-white"
+							className={`relative flex h-full w-full flex-col overflow-hidden sm:inset-auto sm:h-[88vh] sm:min-h-[720px] sm:w-full sm:max-w-[1480px] sm:rounded-[34px] border-2 ${
+								theme === "dark" ? "bg-slate-900 border-slate-700" : "bg-white border-gray-200"
 							} sm:wii-u-window`}
 							onClick={(event) => event.stopPropagation()}
 						>
