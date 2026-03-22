@@ -219,7 +219,7 @@ export const GAME_PREVIEWS: GamePreview[] = [
 		playUrl: "https://zuutheturtlecat.itch.io/asphyxiated",
 		tools: ["Unity", "Aseprite"],
 		role: "Game Designer, Game Artist",
-		year: "2023",
+		year: "May 2023 - June 2023",
 	},
 	{
 		id: "xavier",
@@ -253,7 +253,7 @@ export const GAME_PREVIEWS: GamePreview[] = [
 		playUrl: "https://theguyser.itch.io/xavier-the-explorer",
 		tools: ["Unity"],
 		role: "Game Designer, Narrative Director",
-		year: "2025",
+		year: "Nov 2023 - Jan 2024",
 	},
 	{
 		id: "kawaii-mario",
@@ -282,7 +282,7 @@ export const GAME_PREVIEWS: GamePreview[] = [
 		playUrl: "https://jjunly.itch.io/kawaii-mario-pimpop-sugar-sweet-treatment",
 		tools: ["Unity", "Procreate"],
 		role: "Game Designer, Game Developer, Artist",
-		year: "2025",
+		year: "March 2024",
 	},
 	{
 		id: "remedy",
@@ -315,7 +315,7 @@ export const GAME_PREVIEWS: GamePreview[] = [
 		playUrl: "https://jjunly.itch.io/remedy",
 		tools: ["RPG Maker MZ", "Aseprite"],
 		role: "Game Designer, Game Developer, Artist",
-		year: "2024",
+		year: "March 2024 - April 2024",
 	},
 ];
 
