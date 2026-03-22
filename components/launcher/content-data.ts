@@ -9,6 +9,13 @@ export type ProjectRecord = {
 	details: string[];
 	features: string[];
 	seed: string;
+	researchDocs?: {
+		folder?: string;
+		poster?: string;
+		paper?: string;
+		fieldNotes?: string;
+		interviewTranscript?: string;
+	};
 };
 
 export type ArtworkRecord = {
@@ -67,84 +74,32 @@ export type MusicTrack = {
 
 export const PROJECTS: ProjectRecord[] = [
 	{
-		id: "wii-u-os",
-		title: "Wii U Portfolio OS",
-		kicker: "Immersive portfolio launcher",
-		year: "2026",
-		status: "Live prototype",
-		stack: ["Next.js 16", "Motion", "Tailwind v4"],
+		id: "ace-attorney-research",
+		title: "Player Engagement in Narrative Games (Ace Attorney Case Study)",
+		kicker: "Game Culture Research, Solo Project",
+		year: "July 2024 – September 2024",
+		status: "Completed",
+		stack: ["Ethnography", "Surveys", "Interviews", "Mixed Methods"],
 		summary:
-			"A playful operating-system style portfolio designed around the feeling of opening apps on a Nintendo console.",
+			"This project investigates how narrative design can drive long-term player engagement. By analyzing Ace Attorney through player research and community behavior, I translated findings into practical design insights for retention, replayability, and player-driven content.",
 		details: [
-			"The experience treats navigation as software, not pages, so every section feels launched rather than loaded.",
-			"It focuses on nostalgic motion, polished chrome, and layered ambient lighting to make the site feel tactile and memorable.",
+			"This project investigates how narrative design can drive long-term player engagement through a case study of the Ace Attorney series.",
+			"By analyzing the game through player research and community behavior, I translated findings into practical design insights for retention, replayability, and player-driven content.",
 		],
 		features: [
-			"Boot sequence and per-app launch transitions",
-			"Themeable shell with Wii U-inspired day/night modes",
-			"Local settings persistence for interaction preferences",
+			"Mixed methodology combining surveys and interviews",
+			"Ethnographic approach to player community analysis",
+			"Practical design insights for narrative-driven games",
+			"Focus on retention and replayability strategies",
 		],
-		seed: "project1",
-	},
-	{
-		id: "miiverse-club",
-		title: "Miiverse Club",
-		kicker: "Social micro-community concept",
-		year: "2025",
-		status: "Concept design",
-		stack: ["React", "Community UX", "Interaction design"],
-		summary:
-			"A social feed concept built around expressive reactions, friendly prompts, and illustrated conversation spaces.",
-		details: [
-			"The focus was making social interactions feel playful and low-pressure, with strong visual identity around each action.",
-			"The interaction patterns borrow from old console communities and remix them into a softer, more modern interface language.",
-		],
-		features: [
-			"Reaction-first interactions",
-			"Conversation threads with low-friction posting",
-			"Visual identity system for posts, badges, and mood states",
-		],
-		seed: "project2",
-	},
-	{
-		id: "pixel-atlas",
-		title: "Pixel Atlas",
-		kicker: "Curated art archive",
-		year: "2024",
-		status: "Archived build",
-		stack: ["Next.js", "CMS", "Image pipelines"],
-		summary:
-			"A gallery-first site for collecting artwork, process notes, and visual references in a clean but characterful system.",
-		details: [
-			"The challenge was balancing a dense archive with a calm browsing experience so artwork always remained the focus.",
-			"Layout, hierarchy, and asset treatment were tuned to feel collectible rather than generic.",
-		],
-		features: [
-			"Masonry-inspired gallery composition",
-			"Rich project metadata and collection filtering",
-			"Responsive image treatment with archival framing",
-		],
-		seed: "project3",
-	},
-	{
-		id: "console-mail",
-		title: "Console Mail",
-		kicker: "Messaging UI exploration",
-		year: "2023",
-		status: "Private study",
-		stack: ["UI systems", "Interaction design", "Prototyping"],
-		summary:
-			"A communication concept that explores how console-native messaging could feel warm, legible, and delightfully tactile.",
-		details: [
-			"The design language was driven by rounded hardware metaphors, soft depth, and highly readable information architecture.",
-			"It became a useful study in how nostalgia can guide interaction design without collapsing into imitation.",
-		],
-		features: [
-			"Message composition and status models",
-			"Soft-panel interface architecture",
-			"Theme-aware contrast and accessibility tuning",
-		],
-		seed: "project4",
+		seed: "ace-attorney-research",
+		researchDocs: {
+			folder: "https://drive.google.com/file/d/11sQPD_U-EQsrRgD5ZEUkRUrQ4fRaWy70/view?usp=drive_link",
+			poster: "https://drive.google.com/file/d/11sQPD_U-EQsrRgD5ZEUkRUrQ4fRaWy70/view?usp=drive_link",
+			paper: "https://drive.google.com/file/d/11sQPD_U-EQsrRgD5ZEUkRUrQ4fRaWy70/view?usp=drive_link",
+			fieldNotes: "https://drive.google.com/file/d/11sQPD_U-EQsrRgD5ZEUkRUrQ4fRaWy70/view?usp=drive_link",
+			interviewTranscript: "https://drive.google.com/file/d/11sQPD_U-EQsrRgD5ZEUkRUrQ4fRaWy70/view?usp=drive_link",
+		},
 	},
 ];
 
