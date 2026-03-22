@@ -95,7 +95,7 @@ export const PROJECTS: ProjectRecord[] = [
 		],
 		seed: "ace-attorney-research",
 		researchDocs: {
-			thumbnail: "https://drive.google.com/file/d/1Qu90jFLhe0Vl1mnHpITOEPAK2BdYmg-r/view?usp=drive_link",
+			thumbnail: "/media/portfolio/research/ace-attorney-research/thumbnail.png",
 			poster: "https://drive.google.com/file/d/1Qu90jFLhe0Vl1mnHpITOEPAK2BdYmg-r/view?usp=drive_link",
 			paper: "https://drive.google.com/file/d/11sQPD_U-EQsrRgD5ZEUkRUrQ4fRaWy70/view?usp=drive_link",
 			fieldNotes: "https://drive.google.com/file/d/123mM1tJghAydT1iq7jC8TXIyG_aRKF31/view?usp=drive_link",

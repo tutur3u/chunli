@@ -100,21 +100,23 @@ export function ProjectsContent({ theme, selectedProject, setSelectedProject }: 
 						</div>
 					</div>
 
-					<div
-						className={`relative overflow-hidden rounded-2xl sm:rounded-[28px] border p-2 sm:p-3 ${
-							isDark ? "bg-slate-950/45 border-sky-200/10" : "bg-white/70 border-white/80"
-						}`}
-					>
-						<div className="relative h-48 sm:h-64 overflow-hidden rounded-xl sm:rounded-[22px]">
-							<Image
-								src={`https://picsum.photos/seed/${projectData.seed}/1200/800`}
-								alt={projectData.title}
-								fill
-								className="object-cover"
-								referrerPolicy="no-referrer"
-							/>
-							<div className="absolute inset-0 bg-gradient-to-t from-slate-950/65 via-slate-950/20 to-transparent" />
-							<div className="absolute right-3 sm:right-5 bottom-3 sm:bottom-5 left-3 sm:left-5 flex flex-wrap gap-2">
+					{projectData.researchDocs?.thumbnail ? (
+						<div
+							className={`relative overflow-hidden rounded-2xl sm:rounded-[28px] border p-2 sm:p-3 ${
+								isDark ? "bg-slate-950/45 border-sky-200/10" : "bg-white/70 border-white/80"
+							}`}
+						>
+							<div className="relative w-full overflow-hidden rounded-xl sm:rounded-[22px]">
+								<Image
+									src={projectData.researchDocs.thumbnail}
+									alt={projectData.title}
+									width={1200}
+									height={800}
+									className="w-full h-auto object-contain"
+									priority
+								/>
+							</div>
+							<div className="mt-3 sm:mt-4 flex flex-wrap gap-2">
 								{projectData.stack.map((item) => (
 									<span
 										key={item}
@@ -129,7 +131,38 @@ export function ProjectsContent({ theme, selectedProject, setSelectedProject }: 
 								))}
 							</div>
 						</div>
-					</div>
+					) : (
+						<div
+							className={`relative overflow-hidden rounded-2xl sm:rounded-[28px] border p-2 sm:p-3 ${
+								isDark ? "bg-slate-950/45 border-sky-200/10" : "bg-white/70 border-white/80"
+							}`}
+						>
+							<div className="relative h-48 sm:h-64 overflow-hidden rounded-xl sm:rounded-[22px]">
+								<Image
+									src={`https://picsum.photos/seed/${projectData.seed}/1200/800`}
+									alt={projectData.title}
+									fill
+									className="object-cover"
+									referrerPolicy="no-referrer"
+								/>
+								<div className="absolute inset-0 bg-gradient-to-t from-slate-950/65 via-slate-950/20 to-transparent" />
+								<div className="absolute right-3 sm:right-5 bottom-3 sm:bottom-5 left-3 sm:left-5 flex flex-wrap gap-2">
+									{projectData.stack.map((item) => (
+										<span
+											key={item}
+											className={`rounded-full border px-2 sm:px-3 py-0.5 sm:py-1 text-xs sm:text-sm ${
+												isDark
+													? "bg-slate-950/65 text-sky-100 border-sky-200/10"
+													: "bg-white/90 text-slate-700 border-white/90"
+											}`}
+										>
+											{item}
+										</span>
+									))}
+								</div>
+							</div>
+						</div>
+					)}
 
 					<div className="grid gap-4 lg:grid-cols-[1.25fr_0.85fr]">
 						<div
@@ -345,7 +378,7 @@ export function ProjectsContent({ theme, selectedProject, setSelectedProject }: 
 					>
 						<div className={`relative mb-2 sm:mb-3 h-32 sm:h-40 overflow-hidden rounded-xl ${isDark ? "bg-slate-800" : "bg-slate-200"}`}>
 							<Image
-								src={`https://picsum.photos/seed/${project.seed}/800/600`}
+								src={project.researchDocs?.thumbnail || `https://picsum.photos/seed/${project.seed}/800/600`}
 								alt={project.title}
 								fill
 								className="object-cover transition-transform duration-500 group-hover:scale-105"
