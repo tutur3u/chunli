@@ -1,7 +1,7 @@
 "use client";
 
 import {
-	Briefcase,
+	FileText,
 	Comment,
 	Gamepad,
 	Image,
@@ -28,7 +28,7 @@ export const apps: AppData[] = [
 	{
 		id: "projects",
 		title: "Research",
-		icon: <Briefcase className="w-12 h-12 text-blue-500" />,
+		icon: <FileText className="w-12 h-12 text-blue-500" />,
 		color: "bg-blue-100",
 	},
 	{

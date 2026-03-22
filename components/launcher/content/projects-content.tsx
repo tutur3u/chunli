@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PROJECTS } from "@/components/launcher/content-data";
 import type { ThemeMode } from "@/components/launcher/types";
 
@@ -16,11 +16,21 @@ type ProjectsContentProps = {
 	setSelectedProject: (value: string | null) => void;
 };
 
+// Convert Google Drive view URL to embed URL
+function getGoogleDriveEmbedUrl(url: string): string {
+	const match = url.match(/\/d\/(.*?)(?:\/|$)/);
+	if (match && match[1]) {
+		return `https://drive.google.com/file/d/${match[1]}/preview`;
+	}
+	return url;
+}
+
 export function ProjectsContent({ theme, selectedProject, setSelectedProject }: ProjectsContentProps) {
 	const isDark = theme === "dark";
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const projectData =
 		PROJECTS.find((project) => project.id === selectedProject) ?? null;
+	const [previewPdf, setPreviewPdf] = useState<{ label: string; url: string } | null>(null);
 
 	useEffect(() => {
 		if (projectData && scrollRef.current) {
@@ -28,22 +38,36 @@ export function ProjectsContent({ theme, selectedProject, setSelectedProject }: 
 		}
 	}, [projectData]);
 
-	// Handle Escape key to go back from project details
+	// Handle Escape key to close PDF preview or go back from project details
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
-			if (e.key === "Escape" && projectData) {
+			if (e.key === "Escape") {
+				// Check if PDF preview is open - close it and stop propagation
+				if (previewPdf) {
+					e.stopImmediatePropagation();
+					setPreviewPdf(null);
+					return;
+				}
 				// Check if a modal already handled this escape
 				if (globalThis.escapeHandledByModal) return;
-				setSelectedProject(null);
+				// If in project details, go back to projects list and stop propagation
+				if (projectData) {
+					e.stopImmediatePropagation();
+					setSelectedProject(null);
+					return;
+				}
+				// If in projects list (no projectData), let the shell handle it to close the app
 			}
 		};
-		window.addEventListener("keydown", handleKeyDown);
-		return () => window.removeEventListener("keydown", handleKeyDown);
-	}, [projectData, setSelectedProject]);
+		// Use capture phase to handle escape before other handlers
+		window.addEventListener("keydown", handleKeyDown, true);
+		return () => window.removeEventListener("keydown", handleKeyDown, true);
+	}, [projectData, setSelectedProject, previewPdf]);
 
 	if (projectData) {
 		return (
-			<div ref={scrollRef} className={`h-full overflow-y-auto p-4 sm:p-6 wii-u-scrollbar`}>
+			<>
+				<div ref={scrollRef} className={`h-full overflow-y-auto p-4 sm:p-6 wii-u-scrollbar`}>
 				<div className="space-y-4 sm:space-y-6">
 					<div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
 						<div className="flex-1 min-w-0">
@@ -140,91 +164,87 @@ export function ProjectsContent({ theme, selectedProject, setSelectedProject }: 
 									Research Documents
 								</h4>
 								<div className="flex flex-wrap gap-2">
-									{projectData.researchDocs.folder && (
-										<a
-											href={projectData.researchDocs.folder}
-											target="_blank"
-											rel="noopener noreferrer"
-											className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
-												isDark
-													? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/20"
-													: "bg-gradient-to-r from-emerald-400 to-teal-400 text-white shadow-md"
-											}`}
-										>
-										<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Folder">
-											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-										</svg>
-											All Documents
-										</a>
-									)}
 									{projectData.researchDocs.poster && (
-										<a
-											href={projectData.researchDocs.poster}
-											target="_blank"
-											rel="noopener noreferrer"
-											className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
+										<button
+											type="button"
+											onClick={() => setPreviewPdf({ label: "Research Poster", url: projectData.researchDocs!.poster! })}
+											className={`inline-flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
 												isDark
 													? "border-sky-200/20 text-sky-200 hover:bg-sky-400/10"
 													: "border-sky-200 text-sky-700 hover:bg-sky-50"
 											}`}
 										>
-									<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Poster">
-											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-										</svg>
-										Research Poster
-									</a>
-								)}
-								{projectData.researchDocs.paper && (
-									<a
-										href={projectData.researchDocs.paper}
-										target="_blank"
-										rel="noopener noreferrer"
-										className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
-											isDark
-												? "border-sky-200/20 text-sky-200 hover:bg-sky-400/10"
-												: "border-sky-200 text-sky-700 hover:bg-sky-50"
-										}`}
-									>
-										<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Paper">
-											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-										</svg>
-										Research Paper
-									</a>
-								)}
-								{projectData.researchDocs.fieldNotes && (
-									<a
-										href={projectData.researchDocs.fieldNotes}
-										target="_blank"
-										rel="noopener noreferrer"
-										className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
-											isDark
-												? "border-sky-200/20 text-sky-200 hover:bg-sky-400/10"
-												: "border-sky-200 text-sky-700 hover:bg-sky-50"
-										}`}
-									>
-										<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Notes">
-											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-										</svg>
-										Field Notes & Proposal
-									</a>
-								)}
-								{projectData.researchDocs.interviewTranscript && (
-									<a
-										href={projectData.researchDocs.interviewTranscript}
-										target="_blank"
-										rel="noopener noreferrer"
-										className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
-											isDark
-												? "border-sky-200/20 text-sky-200 hover:bg-sky-400/10"
-												: "border-sky-200 text-sky-700 hover:bg-sky-50"
-										}`}
-									>
-										<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Transcript">
-											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-										</svg>
-										Interview Transcript
-										</a>
+											<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Poster">
+												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+											</svg>
+											Research Poster
+										</button>
 									)}
+									{projectData.researchDocs.paper && (
+										<button
+											type="button"
+											onClick={() => setPreviewPdf({ label: "Research Paper", url: projectData.researchDocs!.paper! })}
+											className={`inline-flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
+												isDark
+													? "border-sky-200/20 text-sky-200 hover:bg-sky-400/10"
+													: "border-sky-200 text-sky-700 hover:bg-sky-50"
+											}`}
+										>
+											<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Paper">
+												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+											</svg>
+											Research Paper
+										</button>
+									)}
+									{projectData.researchDocs.fieldNotes && (
+										<button
+											type="button"
+											onClick={() => setPreviewPdf({ label: "Field Notes", url: projectData.researchDocs!.fieldNotes! })}
+											className={`inline-flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
+												isDark
+													? "border-sky-200/20 text-sky-200 hover:bg-sky-400/10"
+													: "border-sky-200 text-sky-700 hover:bg-sky-50"
+											}`}
+										>
+											<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Notes">
+												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+											</svg>
+											Field Notes
+										</button>
+									)}
+									{projectData.researchDocs.proposal && (
+										<button
+											type="button"
+											onClick={() => setPreviewPdf({ label: "Research Proposal", url: projectData.researchDocs!.proposal! })}
+											className={`inline-flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
+												isDark
+													? "border-sky-200/20 text-sky-200 hover:bg-sky-400/10"
+													: "border-sky-200 text-sky-700 hover:bg-sky-50"
+											}`}
+										>
+											<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Proposal">
+												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+											</svg>
+											Research Proposal
+										</button>
+									)}
+									{projectData.researchDocs.interviews?.map((interview) => (
+										<button
+											type="button"
+											key={interview.label}
+											onClick={() => setPreviewPdf({ label: interview.label, url: interview.url })}
+											className={`inline-flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
+												isDark
+													? "border-sky-200/20 text-sky-200 hover:bg-sky-400/10"
+													: "border-sky-200 text-sky-700 hover:bg-sky-50"
+											}`}
+										>
+											<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Interview">
+												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+											</svg>
+											{interview.label}
+										</button>
+									))}
 								</div>
 							</div>
 						)}
@@ -232,7 +252,72 @@ export function ProjectsContent({ theme, selectedProject, setSelectedProject }: 
 					</div>
 				</div>
 			</div>
-		);
+
+			{/* PDF Preview Modal */}
+			{previewPdf && (
+				<div
+					data-pdf-open="true"
+					className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+					onClick={() => setPreviewPdf(null)}
+					onKeyDown={(e) => { if (e.key === "Escape") { e.stopPropagation(); setPreviewPdf(null); } }}
+				>
+					<div className={`absolute inset-0 ${isDark ? "bg-black/80" : "bg-black/60"}`} />
+					<div
+						className={`relative w-full max-w-6xl max-h-[90vh] rounded-2xl overflow-hidden shadow-2xl ${
+							isDark ? "bg-slate-900 border border-white/10" : "bg-white border border-slate-200"
+						}`}
+						onClick={(e) => e.stopPropagation()}
+						onKeyDown={(e) => e.stopPropagation()}
+						role="dialog"
+						aria-modal="true"
+						aria-labelledby="pdf-preview-title"
+					>
+						<div className={`flex items-center justify-between px-4 sm:px-6 py-3 border-b ${isDark ? "border-white/10" : "border-slate-200"}`}>
+							<h3 className={`font-bold text-sm sm:text-base ${isDark ? "text-white" : "text-slate-800"}`}>
+								{previewPdf.label}
+							</h3>
+							<div className="flex items-center gap-2">
+								<a
+									href={previewPdf.url}
+									target="_blank"
+									rel="noopener noreferrer"
+									className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+										isDark
+											? "text-sky-300 hover:bg-sky-400/10"
+											: "text-sky-700 hover:bg-sky-50"
+									}`}
+								>
+									Open in Drive
+								</a>
+								<button
+									type="button"
+									onClick={() => setPreviewPdf(null)}
+									className={`rounded-lg p-1.5 transition-colors ${
+										isDark
+											? "text-slate-400 hover:text-white hover:bg-white/10"
+											: "text-slate-500 hover:text-slate-800 hover:bg-slate-100"
+									}`}
+									aria-label="Close PDF preview"
+								>
+									<svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+									</svg>
+								</button>
+							</div>
+						</div>
+						<div className="h-[70vh] sm:h-[75vh]">
+							<iframe
+								src={getGoogleDriveEmbedUrl(previewPdf.url)}
+								className="w-full h-full"
+								title={previewPdf.label}
+								allow="autoplay"
+							/>
+						</div>
+					</div>
+				</div>
+			)}
+		</>
+	);
 	}
 
 	return (

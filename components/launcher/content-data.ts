@@ -10,11 +10,12 @@ export type ProjectRecord = {
 	features: string[];
 	seed: string;
 	researchDocs?: {
-		folder?: string;
 		poster?: string;
 		paper?: string;
 		fieldNotes?: string;
-		interviewTranscript?: string;
+		proposal?: string;
+		thumbnail?: string;
+		interviews?: { label: string; url: string }[];
 	};
 };
 
@@ -94,11 +95,15 @@ export const PROJECTS: ProjectRecord[] = [
 		],
 		seed: "ace-attorney-research",
 		researchDocs: {
-			folder: "https://drive.google.com/file/d/11sQPD_U-EQsrRgD5ZEUkRUrQ4fRaWy70/view?usp=drive_link",
-			poster: "https://drive.google.com/file/d/11sQPD_U-EQsrRgD5ZEUkRUrQ4fRaWy70/view?usp=drive_link",
+			thumbnail: "https://drive.google.com/file/d/1Qu90jFLhe0Vl1mnHpITOEPAK2BdYmg-r/view?usp=drive_link",
+			poster: "https://drive.google.com/file/d/1Qu90jFLhe0Vl1mnHpITOEPAK2BdYmg-r/view?usp=drive_link",
 			paper: "https://drive.google.com/file/d/11sQPD_U-EQsrRgD5ZEUkRUrQ4fRaWy70/view?usp=drive_link",
-			fieldNotes: "https://drive.google.com/file/d/11sQPD_U-EQsrRgD5ZEUkRUrQ4fRaWy70/view?usp=drive_link",
-			interviewTranscript: "https://drive.google.com/file/d/11sQPD_U-EQsrRgD5ZEUkRUrQ4fRaWy70/view?usp=drive_link",
+			fieldNotes: "https://drive.google.com/file/d/123mM1tJghAydT1iq7jC8TXIyG_aRKF31/view?usp=drive_link",
+			proposal: "https://drive.google.com/file/d/1QX7Rxv3VE7vb_H_uUO3J5L1E8e4ISU0u/view?usp=drive_link",
+			interviews: [
+				{ label: "Interview 1", url: "https://drive.google.com/file/d/1ZSS2dIVhzeWfu4fD-xb1i26gysoQ4MuV/view?usp=drive_link" },
+				{ label: "Interview 2", url: "https://drive.google.com/file/d/1KpocJ1D74Kr3TmFOV2z-sys8KHgcCJ6R/view?usp=drive_link" },
+			],
 		},
 	},
 ];
