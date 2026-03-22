@@ -168,61 +168,61 @@ export function ProjectsContent({ theme, selectedProject, setSelectedProject }: 
 													: "border-sky-200 text-sky-700 hover:bg-sky-50"
 											}`}
 										>
-											<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-											</svg>
-											Research Poster
-										</a>
-									)}
-									{projectData.researchDocs.paper && (
-										<a
-											href={projectData.researchDocs.paper}
-											target="_blank"
-											rel="noopener noreferrer"
-											className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
-												isDark
-													? "border-sky-200/20 text-sky-200 hover:bg-sky-400/10"
-													: "border-sky-200 text-sky-700 hover:bg-sky-50"
-											}`}
-										>
-											<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-											</svg>
-											Research Paper
-										</a>
-									)}
-									{projectData.researchDocs.fieldNotes && (
-										<a
-											href={projectData.researchDocs.fieldNotes}
-											target="_blank"
-											rel="noopener noreferrer"
-											className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
-												isDark
-													? "border-sky-200/20 text-sky-200 hover:bg-sky-400/10"
-													: "border-sky-200 text-sky-700 hover:bg-sky-50"
-											}`}
-										>
-											<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-											</svg>
-											Field Notes & Proposal
-										</a>
-									)}
-									{projectData.researchDocs.interviewTranscript && (
-										<a
-											href={projectData.researchDocs.interviewTranscript}
-											target="_blank"
-											rel="noopener noreferrer"
-											className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
-												isDark
-													? "border-sky-200/20 text-sky-200 hover:bg-sky-400/10"
-													: "border-sky-200 text-sky-700 hover:bg-sky-50"
-											}`}
-										>
-											<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-											</svg>
-											Interview Transcript
+									<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Poster">
+											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+										</svg>
+										Research Poster
+									</a>
+								)}
+								{projectData.researchDocs.paper && (
+									<a
+										href={projectData.researchDocs.paper}
+										target="_blank"
+										rel="noopener noreferrer"
+										className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
+											isDark
+												? "border-sky-200/20 text-sky-200 hover:bg-sky-400/10"
+												: "border-sky-200 text-sky-700 hover:bg-sky-50"
+										}`}
+									>
+										<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Paper">
+											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+										</svg>
+										Research Paper
+									</a>
+								)}
+								{projectData.researchDocs.fieldNotes && (
+									<a
+										href={projectData.researchDocs.fieldNotes}
+										target="_blank"
+										rel="noopener noreferrer"
+										className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
+											isDark
+												? "border-sky-200/20 text-sky-200 hover:bg-sky-400/10"
+												: "border-sky-200 text-sky-700 hover:bg-sky-50"
+										}`}
+									>
+										<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Notes">
+											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+										</svg>
+										Field Notes & Proposal
+									</a>
+								)}
+								{projectData.researchDocs.interviewTranscript && (
+									<a
+										href={projectData.researchDocs.interviewTranscript}
+										target="_blank"
+										rel="noopener noreferrer"
+										className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
+											isDark
+												? "border-sky-200/20 text-sky-200 hover:bg-sky-400/10"
+												: "border-sky-200 text-sky-700 hover:bg-sky-50"
+										}`}
+									>
+										<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Transcript">
+											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+										</svg>
+										Interview Transcript
 										</a>
 									)}
 								</div>
