@@ -420,11 +420,21 @@ function GameDetailView({
 													</span>
 												</>
 											)}
-											<span className={`text-xs ${isDark ? "text-slate-600" : "text-slate-400"}`}>•</span>
-											<span className={`rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 px-3 py-0.5 text-xs font-bold text-white`}>
-												{game.state}
+										<span className={`text-xs ${isDark ? "text-slate-600" : "text-slate-400"}`}>•</span>
+										<span className={`rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 px-3 py-0.5 text-xs font-bold text-white`}>
+											{game.state}
+										</span>
+										{game.nominated && (
+											<span className={`inline-flex items-center gap-1 rounded-full px-3 py-0.5 text-xs font-bold ${
+												isDark
+													? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/20"
+													: "bg-gradient-to-r from-amber-400 to-orange-400 text-white shadow-md"
+											}`}>
+												<Trophy className="h-3 w-3" />
+												RMIT Showcase
 											</span>
-										</div>
+										)}
+									</div>
 
 										<p className={`max-w-2xl leading-relaxed ${isDark ? "text-slate-300" : "text-slate-600"}`}>
 											{game.description}
@@ -583,13 +593,23 @@ function GameCard({
 				</div>
 				<div className="flex flex-col justify-between">
 					<div>
-						<div className="flex items-center gap-2">
+						<div className="flex items-center gap-2 flex-wrap">
 							<div className={`text-xs uppercase tracking-[0.18em] ${isDark ? "text-emerald-400" : "text-emerald-700"}`}>
 								{game.tagline}
 							</div>
 							<span className={`rounded-full bg-gradient-to-r ${game.accent} px-2 py-0.5 text-xs font-bold text-white`}>
 								{game.state}
 							</span>
+							{game.nominated && (
+								<span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold ${
+									isDark
+										? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/20"
+										: "bg-gradient-to-r from-amber-400 to-orange-400 text-white shadow-md"
+								}`}>
+									<Trophy className="h-3 w-3" />
+									RMIT Showcase
+								</span>
+							)}
 						</div>
 						<h3 className={`mt-2 text-2xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}>
 							{game.title}
