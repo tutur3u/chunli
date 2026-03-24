@@ -8,9 +8,19 @@ import { GAME_PREVIEWS } from "@/components/launcher/content-data";
 import type { ThemeMode } from "@/components/launcher/types";
 import type { GamePreview } from "@/components/launcher/content-data";
 
+const SHOWCASE_LABEL = "RMIT Showcase Nomination";
+
 // Global flag to track if escape was handled by a modal (shared across content files)
 declare global {
   var escapeHandledByModal: boolean;
+}
+
+function getDocumentEmbedUrl(url: string): string {
+	const match = url.match(/\/d\/(.*?)(?:\/|$)/);
+	if (match && match[1]) {
+		return `https://drive.google.com/file/d/${match[1]}/preview`;
+	}
+	return `https://drive.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
 }
 
 function VideoEmbed({ videoUrl }: { videoUrl: string }) {
@@ -230,7 +240,7 @@ function ScreenshotStrip({ screenshots, gameTab, setGameTab }: { screenshots: { 
 	);
 }
 
-function PdfModal({ pdfUrl, onClose }: { pdfUrl: string; onClose: () => void }) {
+function PdfModal({ documentLabel, pdfUrl, onClose }: { documentLabel: string; pdfUrl: string; onClose: () => void }) {
 	const [isLoading, setIsLoading] = useState(true);
 
 	// Handle Escape key to close PDF modal
@@ -274,7 +284,7 @@ function PdfModal({ pdfUrl, onClose }: { pdfUrl: string; onClose: () => void }) 
 				<div className="flex items-center justify-between border-b border-white/10 bg-slate-900/80 px-5 py-4">
 					<div className="flex items-center gap-3">
 						<FileText className="h-5 w-5 text-emerald-400" />
-						<span className="font-bold text-white">Game Design Document</span>
+						<span className="font-bold text-white">{documentLabel}</span>
 					</div>
 					<button
 						type="button"
@@ -297,9 +307,9 @@ function PdfModal({ pdfUrl, onClose }: { pdfUrl: string; onClose: () => void }) 
 						</div>
 					)}
 					<iframe
-						src={`https://drive.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`}
+						src={getDocumentEmbedUrl(pdfUrl)}
 						className="h-full w-full"
-						title="GDD PDF Viewer"
+						title={documentLabel}
 						onLoad={() => setIsLoading(false)}
 					/>
 				</div>
@@ -321,8 +331,9 @@ function GameDetailView({
 	gameTab: string | null;
 	setGameTab: (value: string | null) => void;
 }) {
-	const [showPdf, setShowPdf] = useState(false);
+	const [activeDocument, setActiveDocument] = useState<{ label: string; url: string } | null>(null);
 	const isDark = theme === "dark";
+	const documents = game.documents ?? (game.gddUrl ? [{ label: "Game Design Document", url: game.gddUrl }] : []);
 
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
@@ -431,7 +442,7 @@ function GameDetailView({
 													: "bg-gradient-to-r from-amber-400 to-orange-400 text-white shadow-md"
 											}`}>
 												<Trophy className="h-3 w-3" />
-												RMIT Showcase
+												{SHOWCASE_LABEL}
 											</span>
 										)}
 									</div>
@@ -490,10 +501,11 @@ function GameDetailView({
 												Play Now
 											</a>
 										)}
-										{game.gddUrl && (
+										{documents.map((document) => (
 											<button
 												type="button"
-												onClick={() => setShowPdf(true)}
+												key={document.label}
+												onClick={() => setActiveDocument(document)}
 												className={`inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3 font-bold transition-all hover:scale-105 ${
 													isDark
 														? "bg-slate-800/80 text-white hover:bg-slate-700/90 border border-white/15"
@@ -501,9 +513,9 @@ function GameDetailView({
 												}`}
 											>
 												<FileText className="h-4 w-4" />
-												View GDD
+												{document.label}
 											</button>
-										)}
+										))}
 									</div>
 									</div>
 								</div>
@@ -542,8 +554,8 @@ function GameDetailView({
 			</AnimatePresence>
 
 			<AnimatePresence>
-				{showPdf && game.gddUrl && (
-					<PdfModal pdfUrl={game.gddUrl} onClose={() => setShowPdf(false)} />
+				{activeDocument && (
+					<PdfModal documentLabel={activeDocument.label} pdfUrl={activeDocument.url} onClose={() => setActiveDocument(null)} />
 				)}
 			</AnimatePresence>
 		</>
@@ -607,7 +619,7 @@ function GameCard({
 										: "bg-gradient-to-r from-amber-400 to-orange-400 text-white shadow-md"
 								}`}>
 									<Trophy className="h-3 w-3" />
-									RMIT Showcase
+									{SHOWCASE_LABEL}
 								</span>
 							)}
 						</div>

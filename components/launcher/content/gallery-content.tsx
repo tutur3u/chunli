@@ -12,6 +12,16 @@ declare global {
 
 // All images from public/media/portfolio folder
 const PORTFOLIO_IMAGES = [
+	"/media/portfolio/games/atelier/thumbnail.png",
+	"/media/portfolio/games/aa-sequel/gameplay/1.png",
+	"/media/portfolio/games/aa-sequel/gameplay/2.png",
+	"/media/portfolio/games/aa-sequel/gameplay/3.png",
+	"/media/portfolio/games/aa-sequel/gameplay/4.png",
+	"/media/portfolio/games/aa-sequel/gameplay/5.png",
+	"/media/portfolio/games/aa-sequel/gameplay/6.png",
+	"/media/portfolio/games/aa-sequel/gameplay/7.png",
+	"/media/portfolio/games/aa-sequel/gameplay/8.png",
+	"/media/portfolio/games/aa-sequel/gameplay/9.png",
 	"/media/portfolio/games/remedy/gameplay/1.png",
 	"/media/portfolio/games/remedy/gameplay/2.png",
 	"/media/portfolio/games/remedy/gameplay/3.png",

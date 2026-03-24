@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { PROJECTS } from "@/components/launcher/content-data";
 import type { ThemeMode } from "@/components/launcher/types";
 
+const SHOWCASE_LABEL = "RMIT Showcase Nomination";
+
 // Global flag to track if escape was handled by a modal (shared across content files)
 declare global {
   var escapeHandledByModal: boolean;
@@ -83,7 +85,20 @@ export function ProjectsContent({ theme, selectedProject, setSelectedProject }: 
 								← Back
 							</button>
 							<div className={`text-xs sm:text-sm uppercase tracking-[0.18em] ${isDark ? "text-sky-300" : "text-sky-700"}`}>
-								{projectData.kicker}
+								<div className="flex flex-wrap items-center gap-2">
+									<span>{projectData.kicker}</span>
+									{projectData.nominated && (
+										<span
+											className={`inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-bold tracking-[0.12em] normal-case ${
+												isDark
+													? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/20"
+													: "bg-gradient-to-r from-amber-400 to-orange-400 text-white shadow-md"
+											}`}
+										>
+											{SHOWCASE_LABEL}
+										</span>
+									)}
+								</div>
 							</div>
 							<h2 className={`mt-2 text-2xl sm:text-3xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}>
 								{projectData.title}
@@ -278,6 +293,23 @@ export function ProjectsContent({ theme, selectedProject, setSelectedProject }: 
 											{interview.label}
 										</button>
 									))}
+									{projectData.researchDocs.documents?.map((document) => (
+										<button
+											type="button"
+											key={document.label}
+											onClick={() => setPreviewPdf({ label: document.label, url: document.url })}
+											className={`inline-flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-0.5 ${
+												isDark
+													? "border-sky-200/20 text-sky-200 hover:bg-sky-400/10"
+													: "border-sky-200 text-sky-700 hover:bg-sky-50"
+											}`}
+										>
+											<svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label={document.label}>
+												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+											</svg>
+											{document.label}
+										</button>
+									))}
 								</div>
 							</div>
 						)}
@@ -316,11 +348,11 @@ export function ProjectsContent({ theme, selectedProject, setSelectedProject }: 
 									rel="noopener noreferrer"
 									className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
 										isDark
-											? "text-sky-300 hover:bg-sky-400/10"
-											: "text-sky-700 hover:bg-sky-50"
+										? "text-sky-300 hover:bg-sky-400/10"
+										: "text-sky-700 hover:bg-sky-50"
 									}`}
 								>
-									Open in Drive
+									Open Document
 								</a>
 								<button
 									type="button"
@@ -390,7 +422,20 @@ export function ProjectsContent({ theme, selectedProject, setSelectedProject }: 
 							</div>
 						</div>
 						<div className={`text-xs uppercase tracking-[0.18em] ${isDark ? "text-sky-300" : "text-sky-700"}`}>
-							{project.kicker}
+							<div className="flex flex-wrap items-center gap-2">
+								<span>{project.kicker}</span>
+								{project.nominated && (
+									<span
+										className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold tracking-[0.12em] normal-case ${
+											isDark
+												? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/20"
+												: "bg-gradient-to-r from-amber-400 to-orange-400 text-white shadow-md"
+										}`}
+									>
+										{SHOWCASE_LABEL}
+									</span>
+								)}
+							</div>
 						</div>
 						<h3 className={`mt-1 sm:mt-2 font-bold text-sm sm:text-base ${isDark ? "text-slate-100" : "text-slate-700"}`}>{project.title}</h3>
 						<p className={`mt-1 text-xs sm:text-sm ${isDark ? "text-slate-400" : "text-slate-500"}`}>{project.summary}</p>

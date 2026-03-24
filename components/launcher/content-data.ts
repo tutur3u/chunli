@@ -9,12 +9,14 @@ export type ProjectRecord = {
 	details: string[];
 	features: string[];
 	seed: string;
+	nominated?: boolean;
 	researchDocs?: {
 		poster?: string;
 		paper?: string;
 		fieldNotes?: string;
 		proposal?: string;
 		thumbnail?: string;
+		documents?: { label: string; url: string }[];
 		interviews?: { label: string; url: string }[];
 	};
 };
@@ -47,6 +49,7 @@ export type GamePreview = {
 	genres: string[];
 	videoUrl?: string;
 	gddUrl?: string;
+	documents?: { label: string; url: string }[];
 	screenshots?: {
 		gameplay: string[];
 		bts?: string[];
@@ -74,6 +77,61 @@ export type MusicTrack = {
 };
 
 export const PROJECTS: ProjectRecord[] = [
+	{
+		id: "mario-kart-split-screen",
+		title: "The Technology Evolution Of Split Screen in Mario Kart (1992-2017)",
+		kicker: "Game Studies, Team Project",
+		year: "April 2025",
+		status: "Completed",
+		stack: ["Ethnography", "Secondary Research", "Remote Observation", "Gameplay Systems Analysis"],
+		summary:
+			"This zine traces how split-screen play evolved between Super Mario Kart (1992) and Mario Kart 8 Deluxe (2017), focusing on the technical and experiential shifts that reshaped local multiplayer.",
+		details: [
+			"Imagine huddling on the couch in 1992, elbows bumping, SNES controllers in hand, racing on pixelated tracks. Fast forward to 2017 and you're dodging red shells on the go with a Joy-Con in hand.",
+			"This zine explores the technical journey of split-screen gameplay through two titles in the Mario Kart series: Super Mario Kart (1992) and Mario Kart 8 Deluxe (2017).",
+		],
+		features: [
+			"Comparative analysis across two generations of Mario Kart split-screen design",
+			"Technical research into how hardware shifts changed local multiplayer play",
+			"Ethnographic framing grounded in player experience and observation",
+			"Team-led synthesis across creative direction, systems analysis, and research",
+		],
+		seed: "mario-kart-split-screen",
+		nominated: true,
+		researchDocs: {
+			documents: [
+				{ label: "Research Zine", url: "https://drive.google.com/file/d/1G6rHOE0NV63yBCCoiUaieGAacntAxXcj/view?usp=drive_link" },
+			],
+		},
+	},
+	{
+		id: "cozy-games-market-force",
+		title: "The Rise of Cozy Games as a Market Force",
+		kicker: "Market Research, Solo Project",
+		year: "July 2025",
+		status: "Completed",
+		stack: ["Market Research", "Quantitative", "PowerPoint", "Word"],
+		summary:
+			"This project examines the rise of cozy games as a commercial force and uses Spry Fox Studio as a case study to understand what the genre reveals about player engagement today.",
+		details: [
+			"This project explores the rise of cozy games and examines how the genre sheds light on complex issues surrounding player engagement in today's gaming landscape, using Spry Fox Studio as a primary case study.",
+			"The work combines market-focused analysis with quantitative framing to position cozy games as both a cultural and commercial shift in the current games industry.",
+		],
+		features: [
+			"Market-focused analysis of cozy games as a growing genre category",
+			"Spry Fox Studio case study",
+			"Quantitative framing for engagement and audience trends",
+			"Presentation and written research package",
+		],
+		seed: "cozy-games-market-force",
+			researchDocs: {
+				thumbnail: "/media/portfolio/research/cozy-games-trend/thumbnail.png",
+				documents: [
+					{ label: "Pitch Presentation", url: "https://drive.google.com/file/d/15lIrHAqQbBuSl68C_ZxVrlolyAJ9EVI1/view?usp=drive_link" },
+					{ label: "Research Paper", url: "https://drive.google.com/file/d/1FqRrrlJsWJkfw86PDCTnbijq8guEXJEx/view?usp=drive_link" },
+				],
+			},
+		},
 	{
 		id: "ace-attorney-research",
 		title: "Player Engagement in Narrative Games (Ace Attorney Case Study)",
@@ -156,6 +214,32 @@ export const POSTS: FeedPost[] = [
 
 export const GAME_PREVIEWS: GamePreview[] = [
 	{
+		id: "atelier",
+		title: "Atelier",
+		tagline: "Board Game, Project Brief, Rulebook, Solo Project",
+		state: "Completed",
+		accent: "from-amber-300 via-orange-400 to-rose-500",
+		seed: "atelier",
+		description:
+			"In Atelier, rival potion factories race to advertise cures for the current ailment while hiding the downsides their own lab staff uncovered. The catch is that the factories are so large that creators and promoters barely communicate, so every pitch can reveal a surprising truth about the potion being sold.",
+		features: [
+			"Competitive board game concept",
+			"Potion advertising and bluffing dynamic",
+			"Factory-scale communication twist",
+			"Solo-designed ruleset and brief",
+		],
+		genres: ["Board Game", "Project Brief", "Rulebook", "Solo Project"],
+		documents: [
+			{ label: "Project Brief", url: "https://drive.google.com/file/d/1fKjz51zj7lND7ZKsML19cDBR0h-Ds_2f/view?usp=sharing" },
+		],
+		screenshots: {
+			gameplay: ["/media/portfolio/games/atelier/thumbnail.png"],
+		},
+		tools: [],
+		role: "Game Designer",
+		year: "Nov 2022",
+	},
+	{
 		id: "asphyxiated",
 		title: "Asphyxiated",
 		tagline: "2D Platformer, Team Project",
@@ -186,6 +270,44 @@ export const GAME_PREVIEWS: GamePreview[] = [
 		tools: ["Unity", "Aseprite"],
 		role: "Game Designer, Game Artist",
 		year: "May 2023 - June 2023",
+	},
+	{
+		id: "athena-cykes-ace-attorney",
+		title: "Athena Cykes: The Ace Attorney",
+		tagline: "Ace Attorney sequel project, GDD, Team Project",
+		state: "Completed",
+		accent: "from-sky-400 via-cyan-500 to-blue-600",
+		seed: "athena-cykes-ace-attorney",
+		description:
+			"Inspired by the Ace Attorney series, this sequel concept explores how strong narration, sound design, and simple point-and-click interactions can still produce a memorable visual novel experience. The project focused on translating that admiration into a team-led concept package and playable prototype direction.",
+		features: [
+			"Visual novel sequel concept rooted in Ace Attorney design language",
+			"Team-authored game design document and concept presentation",
+			"Point-and-click investigation inspiration",
+			"Prototype materials with process documentation",
+		],
+		genres: ["Ace Attorney sequel project", "GDD", "Team Project"],
+		videoUrl: "https://www.youtube.com/embed/w751CvzhmlM",
+		documents: [
+			{ label: "Game Design Document", url: "https://drive.google.com/file/d/11tVohiGnNHUsDB102S3wbEUyUSJkFw9c/view?usp=drive_link" },
+			{ label: "Introduction, Game Idea, Work Process", url: "https://drive.google.com/file/d/110xyBRT64j4Ldv96FTaFbl4OO5-O073U/view?usp=drive_link" },
+		],
+		screenshots: {
+			gameplay: [
+				"/media/portfolio/games/aa-sequel/gameplay/1.png",
+				"/media/portfolio/games/aa-sequel/gameplay/2.png",
+				"/media/portfolio/games/aa-sequel/gameplay/3.png",
+				"/media/portfolio/games/aa-sequel/gameplay/4.png",
+				"/media/portfolio/games/aa-sequel/gameplay/5.png",
+				"/media/portfolio/games/aa-sequel/gameplay/6.png",
+				"/media/portfolio/games/aa-sequel/gameplay/7.png",
+				"/media/portfolio/games/aa-sequel/gameplay/8.png",
+				"/media/portfolio/games/aa-sequel/gameplay/9.png",
+			],
+		},
+		role: "Game Writer, Gameplay Design, Team Leader",
+		year: "Aug-Sep 2023",
+		nominated: true,
 	},
 	{
 		id: "xavier",
