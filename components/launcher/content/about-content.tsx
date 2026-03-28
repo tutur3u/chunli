@@ -1,4 +1,4 @@
-import { Heart, Sparkles, Zap } from "pixelarticons/react";
+import { Heart, Link, Sparkles, Zap } from "pixelarticons/react";
 import { motion } from "motion/react";
 import type { ThemeMode } from "@/components/launcher/types";
 
@@ -60,6 +60,14 @@ const STUDIO_NOTES = [
 	"Keep whimsy visible, but never at the expense of hierarchy.",
 	"Make the interface memorable before it becomes familiar.",
 ] as const;
+
+const FEATURED_LINK = {
+	label: "itch.io",
+	href: "https://chunlii.itch.io",
+	title: "Play Space",
+	description:
+		"Playable experiments, game builds, and tiny worlds that show another side of the work.",
+} as const;
 
 export function AboutContent({ theme }: { theme: ThemeMode }) {
 	const isDark = theme === "dark";
@@ -152,6 +160,38 @@ export function AboutContent({ theme }: { theme: ThemeMode }) {
 							</span>
 						))}
 					</div>
+
+					<a
+						href={FEATURED_LINK.href}
+						target="_blank"
+						rel="noopener noreferrer"
+						className={`mt-6 flex items-start justify-between gap-4 rounded-[24px] border p-4 transition-all hover:-translate-y-0.5 ${
+							isDark
+								? "border-cyan-300/15 bg-slate-950/40 hover:border-cyan-300/30 hover:bg-slate-900/70"
+								: "border-[#daf7fc] bg-[#ecfdff]/92 hover:bg-[#f5feff] shadow-[0_16px_30px_rgba(67,152,184,0.1)]"
+						}`}
+						aria-label="Visit Chunli on itch.io"
+					>
+						<div>
+							<div className={`text-xs uppercase tracking-[0.18em] ${isDark ? "text-slate-500" : "text-cyan-700"}`}>
+								{FEATURED_LINK.title}
+							</div>
+							<div className={`mt-2 flex items-center gap-2 text-lg font-bold ${isDark ? "text-white" : "text-slate-800"}`}>
+								<Link className="h-4 w-4" />
+								{FEATURED_LINK.label}
+							</div>
+							<p className={`mt-2 max-w-xl text-sm leading-7 ${isDark ? "text-slate-300" : "text-sky-900/76"}`}>
+								{FEATURED_LINK.description}
+							</p>
+						</div>
+						<div
+							className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] ${
+								isDark ? "bg-cyan-400/12 text-cyan-200" : "bg-cyan-50 text-cyan-700"
+							}`}
+						>
+							Open
+						</div>
+					</a>
 				</motion.div>
 
 				<motion.div

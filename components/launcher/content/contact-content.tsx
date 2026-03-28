@@ -1,4 +1,5 @@
-import { Comment, Link, Mail, Rss } from "pixelarticons/react";
+import { ArrowRight, Comment, Link, Mail, Rss } from "pixelarticons/react";
+import { motion } from "motion/react";
 import type { ThemeMode } from "@/components/launcher/types";
 
 const CONTACT_MODULES = [
@@ -19,14 +20,19 @@ const CONTACT_MODULES = [
 	},
 ] as const;
 
+const EMAIL_GUIDE = [
+	"Who you are and what you are building",
+	"The goal, audience, and launch timing",
+	"Any links, references, or visual directions to keep or avoid",
+	"Budget range if you already have one",
+] as const;
+
 export function ContactContent({ theme }: { theme: ThemeMode }) {
 	const isDark = theme === "dark";
 
 	return (
 		<div className="h-full overflow-y-auto p-6 wii-u-scrollbar">
-			<div
-				className="launcher-soft-hero"
-			>
+			<div className="launcher-soft-hero">
 				<div className="pointer-events-none absolute inset-0 bg-stripes opacity-10" />
 
 				<div className="relative grid gap-6 xl:grid-cols-[1.02fr_0.98fr]">
@@ -40,7 +46,7 @@ export function ContactContent({ theme }: { theme: ThemeMode }) {
 						</h2>
 						<p className={`mt-5 max-w-2xl text-[1.02rem] leading-8 ${isDark ? "text-slate-300" : "text-slate-600"}`}>
 							If a site or interface needs more charm, more personality, or just a
-							better sense of itself, that is the sweet spot. The most useful messages
+							better sense of itself, that is the sweet spot. The most useful emails
 							usually mention the goal, the audience, the timing, and the vibe the
 							finished thing should leave behind.
 						</p>
@@ -73,7 +79,10 @@ export function ContactContent({ theme }: { theme: ThemeMode }) {
 						</div>
 					</div>
 
-					<div
+					<motion.div
+						initial={{ opacity: 0, y: 14 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.32, ease: "easeOut" }}
 						className={`rounded-[30px] border p-5 md:p-6 ${
 							isDark
 								? "border-white/8 bg-slate-950/40"
@@ -83,83 +92,119 @@ export function ContactContent({ theme }: { theme: ThemeMode }) {
 						<div className="flex items-start justify-between gap-4">
 							<div>
 								<div className={`text-xs uppercase tracking-[0.18em] ${isDark ? "text-slate-500" : "text-slate-400"}`}>
-									Message Queue
+									Direct Line
 								</div>
 								<div className={`mt-2 text-2xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}>
-									Brief Sketch
+									Email Works Best
 								</div>
 							</div>
 							<div
 								className={`rounded-full px-3 py-1 text-sm font-bold ${
-									isDark ? "bg-amber-400/12 text-amber-300" : "bg-amber-50 text-amber-700"
+									isDark ? "bg-emerald-400/12 text-emerald-300" : "bg-emerald-50 text-emerald-700"
 								}`}
 							>
-								UI Only
+								Open Inbox
 							</div>
 						</div>
 
 						<p className={`mt-4 text-sm leading-7 ${isDark ? "text-slate-400" : "text-slate-500"}`}>
-							This is a styled preview rather than a live form, but it shows the kind of
-							notes that make collaboration smoother and more fun from the start.
+							Skip the form and send a note straight to the inbox instead. A clear email
+							is the fastest route to a real conversation, especially if it includes the
+							basics of the project and the feeling the final work should leave behind.
 						</p>
 
-						<div className="mt-5 space-y-4">
-							<div>
-								<label className={`mb-2 block text-xs font-bold uppercase tracking-[0.16em] ${isDark ? "text-slate-500" : "text-slate-400"}`}>
-									Name / Studio
-								</label>
-								<input
-									type="text"
-									readOnly
-									value="Who is asking?"
-									className={`wii-u-field w-full rounded-2xl border px-4 py-3 ${
-										isDark
-											? "border-slate-700 text-slate-300"
-											: "border-slate-200 text-slate-600"
-									}`}
-								/>
+						<div
+							className={`mt-5 rounded-[26px] border p-4 md:p-5 ${
+								isDark
+									? "border-cyan-300/15 bg-[linear-gradient(180deg,rgba(8,47,73,0.22),rgba(2,6,23,0.45))]"
+									: "border-[#daf7fc] bg-[linear-gradient(180deg,rgba(235,252,255,0.98),rgba(220,246,251,0.92))] shadow-[0_18px_34px_rgba(67,152,184,0.1)]"
+							}`}
+						>
+							<div className={`text-xs uppercase tracking-[0.18em] ${isDark ? "text-slate-500" : "text-cyan-700"}`}>
+								Send To
 							</div>
-
-							<div>
-								<label className={`mb-2 block text-xs font-bold uppercase tracking-[0.16em] ${isDark ? "text-slate-500" : "text-slate-400"}`}>
-									What Needs Help
-								</label>
-								<input
-									type="text"
-									readOnly
-									value="Landing page, system refresh, portfolio shell, product UI..."
-									className={`wii-u-field w-full rounded-2xl border px-4 py-3 ${
-										isDark
-											? "border-slate-700 text-slate-300"
-											: "border-slate-200 text-slate-600"
-									}`}
-								/>
+							<div className={`mt-3 break-all text-[1.65rem] font-bold leading-tight md:text-[2rem] ${isDark ? "text-white" : "text-slate-800"}`}>
+								hi@chunli.space
 							</div>
+							<p className={`mt-3 max-w-lg text-sm leading-7 ${isDark ? "text-slate-300" : "text-sky-900/76"}`}>
+								Use this address for collaboration inquiries, portfolio work, UI design
+								help, and any project that needs stronger presence and cleaner execution.
+							</p>
 
-							<div>
-								<label className={`mb-2 block text-xs font-bold uppercase tracking-[0.16em] ${isDark ? "text-slate-500" : "text-slate-400"}`}>
-									Desired Feel
-								</label>
-								<textarea
-									readOnly
-									value="Share the audience, timeline, references to avoid, and what the finished interface should make people feel."
-									className={`wii-u-field h-32 w-full resize-none rounded-2xl border px-4 py-3 leading-7 ${
+							<div className="mt-5 flex flex-col gap-3 sm:flex-row">
+								<a
+									href="mailto:hi@chunli.space?subject=Project%20Inquiry"
+									className="wii-u-primary-button inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 font-bold text-white transition-transform hover:scale-[1.01]"
+								>
+									<Mail className="h-4 w-4" />
+									Email hi@chunli.space
+									<ArrowRight className="h-4 w-4" />
+								</a>
+								<a
+									href="mailto:hi@chunli.space"
+									className={`inline-flex items-center justify-center gap-2 rounded-2xl border px-5 py-3 font-bold transition-colors ${
 										isDark
-											? "border-slate-700 text-slate-300"
-											: "border-slate-200 text-slate-600"
+											? "border-white/10 bg-slate-900/65 text-slate-100 hover:bg-slate-800/90"
+											: "border-[#daf7fc] bg-white/75 text-sky-900 hover:bg-[#f5feff]"
 									}`}
-								/>
+								>
+									<Link className="h-4 w-4" />
+									Open plain compose
+								</a>
 							</div>
-
-							<button
-								type="button"
-								aria-disabled="true"
-								className="wii-u-primary-button w-full rounded-2xl py-3 font-bold text-white opacity-85"
-							>
-								Transmit Brief Preview
-							</button>
 						</div>
-					</div>
+
+						<div className="mt-5 grid gap-4 md:grid-cols-[1.08fr_0.92fr]">
+							<div
+								className={`rounded-[24px] border p-4 ${
+									isDark
+										? "border-white/8 bg-slate-950/45"
+										: "border-[#daf7fc] bg-white/72"
+								}`}
+							>
+								<div className={`text-xs uppercase tracking-[0.16em] ${isDark ? "text-slate-500" : "text-slate-400"}`}>
+									Helpful First Email
+								</div>
+								<ul className={`mt-4 space-y-3 text-sm leading-7 ${isDark ? "text-slate-300" : "text-slate-700"}`}>
+									{EMAIL_GUIDE.map((item, index) => (
+										<li key={item} className="flex gap-3">
+											<span
+												className={`mt-2 h-2.5 w-2.5 flex-shrink-0 rounded-full ${
+													index % 2 === 0
+														? isDark
+															? "bg-cyan-300"
+															: "bg-cyan-500"
+														: isDark
+															? "bg-pink-300"
+															: "bg-sky-500"
+												}`}
+											/>
+											{item}
+										</li>
+									))}
+								</ul>
+							</div>
+
+							<div
+								className={`rounded-[24px] border p-4 ${
+									isDark
+										? "border-white/8 bg-slate-950/45"
+										: "border-[#daf7fc] bg-white/72"
+								}`}
+							>
+								<div className={`text-xs uppercase tracking-[0.16em] ${isDark ? "text-slate-500" : "text-slate-400"}`}>
+									Response Rhythm
+								</div>
+								<div className={`mt-3 text-3xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}>
+									A few business days
+								</div>
+								<p className={`mt-3 text-sm leading-7 ${isDark ? "text-slate-300" : "text-slate-700"}`}>
+									If the brief is well-scoped, the reply is usually quicker and much more
+									useful on the first pass.
+								</p>
+							</div>
+						</div>
+					</motion.div>
 				</div>
 			</div>
 		</div>
