@@ -6,7 +6,6 @@ const PROFILE_FACTS = [
 	["Name", "Cat Tuong"],
 	["Call Me", "Chunli"],
 	["Role", "Game Designer and Game Artist"],
-	["Degree", "Bachelor of Design in Games, graduated with Distinction in 2026"],
 ] as const;
 
 const PROFILE_CHIPS = [
@@ -99,17 +98,16 @@ export function AboutContent({ theme }: { theme: ThemeMode }) {
 								isDark ? "text-white" : "text-slate-800"
 							}`}
 						>
-							Hi! I&apos;m Cat Tuong, but please call me Chunli.
+							About Me
 						</h2>
 						<p
 							className={`mt-5 max-w-3xl text-[1.02rem] leading-8 ${
 								isDark ? "text-slate-300" : "text-sky-900/80"
 							}`}
 						>
-							My role is primarily game design and game art. This page keeps the intro in
-							the same soft-console language as the rest of the launcher, but the core of
-							it is simple: I like making games that feel fun, curious, and a little
-							unconventional.
+							Hi! I&apos;m Cat Tuong, but everyone around me prefers me as Chunli, so I
+							would appreciate it if you could call me that. My role is primarily a
+							game designer and game artist.
 						</p>
 					</div>
 
@@ -150,42 +148,36 @@ export function AboutContent({ theme }: { theme: ThemeMode }) {
 							isDark ? "text-slate-500" : "text-cyan-700"
 						}`}
 					>
-						Bio
-					</div>
-					<div
-						className={`mt-4 space-y-4 text-[0.98rem] leading-8 ${
-							isDark ? "text-slate-300" : "text-sky-900/78"
-						}`}
-					>
-						<p>
-							I enjoy brainstorming fun and unusual game ideas, experimenting across
-							different genres, and designing experiences that do not feel too expected.
-						</p>
-						<p>
-							A lot of my process happens through building prototypes and demos. I like
-							finding the shape of a game by making it playable early, then sharpening the
-							experience once the feeling is clear.
-						</p>
-						<p>
-							On the art side, I spend that same energy on pixel art, mockups, and assets
-							that help the world feel cohesive. I want the mechanics, tone, and visuals
-							to support each other from the start.
-						</p>
+						I Enjoy
 					</div>
 
-					<div className="mt-6 flex flex-wrap gap-2">
-						{PROFILE_CHIPS.map((tag) => (
-							<span
-								key={tag}
-								className={`rounded-full border px-4 py-2 text-sm ${
-									isDark
-										? "border-white/10 bg-slate-950/35 text-slate-200"
-										: "border-[#daf7fc] bg-[#eafcff]/92 text-sky-900"
-								}`}
-							>
-								{tag}
-							</span>
-						))}
+					<div
+						className={`mt-4 rounded-[24px] border p-4 ${
+							isDark ? "border-white/8 bg-slate-950/35" : "border-[#daf7fc] bg-[#ecfdff]/90"
+						}`}
+					>
+						<ul
+							className={`grid gap-x-5 gap-y-3 text-sm leading-7 md:grid-cols-2 ${
+								isDark ? "text-slate-300" : "text-sky-900/78"
+							}`}
+						>
+							{PROFILE_CHIPS.map((tag, index) => (
+								<li key={tag} className="flex gap-3">
+									<span
+										className={`mt-2 h-2.5 w-2.5 flex-shrink-0 rounded-full ${
+											index % 2 === 0
+												? isDark
+													? "bg-cyan-300"
+													: "bg-cyan-500"
+												: isDark
+													? "bg-pink-300"
+													: "bg-sky-500"
+										}`}
+									/>
+									{tag}
+								</li>
+							))}
+						</ul>
 					</div>
 
 					<a
@@ -302,8 +294,7 @@ export function AboutContent({ theme }: { theme: ThemeMode }) {
 								isDark ? "text-slate-300" : "text-sky-900/78"
 							}`}
 						>
-							Prototype-first thinking, playful genre curiosity, and a soft spot for
-							pixel details that make a game world feel personal.
+							Game design, game art, and prototypes that get to the point quickly.
 						</p>
 					</div>
 				</motion.div>
@@ -482,7 +473,9 @@ export function AboutContent({ theme }: { theme: ThemeMode }) {
 						</div>
 						<div
 							className={`mt-5 rounded-[24px] border p-4 ${
-								isDark ? "border-amber-300/20 bg-amber-400/8" : "border-[#daf7fc] bg-[#f0feff]"
+								isDark
+									? "border-amber-300/20 bg-[linear-gradient(180deg,rgba(251,191,36,0.08),rgba(15,23,42,0.4))]"
+									: "border-[#daf7fc] bg-[linear-gradient(180deg,#f7feff,#eefcff)]"
 							}`}
 						>
 							<div className="flex items-start gap-3">
@@ -495,7 +488,14 @@ export function AboutContent({ theme }: { theme: ThemeMode }) {
 								</div>
 								<div>
 									<div
-										className={`text-sm font-bold ${
+										className={`inline-flex rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] ${
+											isDark ? "bg-amber-300/10 text-amber-200" : "bg-amber-50 text-amber-700"
+										}`}
+									>
+										Distinction 2026
+									</div>
+									<div
+										className={`mt-3 text-sm font-bold ${
 											isDark ? "text-white" : "text-slate-800"
 										}`}
 									>
@@ -506,8 +506,7 @@ export function AboutContent({ theme }: { theme: ThemeMode }) {
 											isDark ? "text-slate-300" : "text-sky-900/78"
 										}`}
 									>
-										Graduated with Distinction in 2026. The degree shaped both the design
-										side of the practice and the art side that supports each project.
+										Graduated with Distinction in 2026.
 									</p>
 								</div>
 							</div>
