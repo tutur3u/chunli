@@ -3,9 +3,10 @@
 import { useEffect } from "react";
 import { InitialBootOverlay } from "@/components/launcher/overlays";
 import type { AppData, AppId, ThemeMode } from "@/components/launcher/types";
-import { Sun } from "lucide-react";
+import { ShieldCheck, Sun } from "lucide-react";
 import { Cancel, Moon } from "pixelarticons/react";
 import { AnimatePresence, motion } from "motion/react";
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 function generateParticleId(index: number, left: number, top: number): string {
@@ -168,25 +169,38 @@ export function LauncherShell({
 						>
 							{currentTime}
 						</div>
-					<button
-						type="button"
-						onClick={onQuickThemeToggle}
-						aria-label={
-							theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
-						}
-						className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-all ${
-							theme === "dark"
-								? "border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700"
-								: "wii-u-round-button border border-[#d5f4fb] text-sky-800 hover:bg-[#d8f6fc]"
-						}`}
-					>
-						{theme === "dark" ? (
-							<Sun className="h-5 w-5 text-amber-400" />
-						) : (
-							<Moon className="h-5 w-5 text-sky-800" />
-						)}
-					</button>
-				</div>
+						<Link
+							aria-label="Open admin dashboard"
+							className={`flex h-10 items-center gap-2 rounded-full border px-3 text-[0.72rem] font-bold uppercase tracking-[0.18em] transition-all ${
+								theme === "dark"
+									? "border-cyan-300/24 bg-cyan-300/10 text-cyan-100 hover:bg-cyan-300/16"
+									: "border-[#b5edf8] bg-white/45 text-sky-900 hover:bg-[#d8f6fc]"
+							}`}
+							href="/admin"
+							prefetch={false}
+						>
+							<ShieldCheck className="h-4 w-4" />
+							<span className="hidden sm:inline">Admin</span>
+						</Link>
+						<button
+							type="button"
+							onClick={onQuickThemeToggle}
+							aria-label={
+								theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+							}
+							className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-all ${
+								theme === "dark"
+									? "border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700"
+									: "wii-u-round-button border border-[#d5f4fb] text-sky-800 hover:bg-[#d8f6fc]"
+							}`}
+						>
+							{theme === "dark" ? (
+								<Sun className="h-5 w-5 text-amber-400" />
+							) : (
+								<Moon className="h-5 w-5 text-sky-800" />
+							)}
+						</button>
+					</div>
 				</div>
 			</header>
 
