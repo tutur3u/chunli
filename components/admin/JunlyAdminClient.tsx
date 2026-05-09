@@ -643,7 +643,7 @@ export function JunlyAdminClient({
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 px-4 pt-24 pb-16 text-slate-900 dark:bg-slate-950 dark:text-white md:px-6">
+    <div className="fixed inset-0 overflow-y-auto bg-slate-100 px-4 pt-24 pb-16 text-slate-900 dark:bg-slate-950 dark:text-white md:px-6">
       <div className="mx-auto max-w-[96rem]">
         <header className="flex flex-col gap-5 border-b border-slate-200 pb-6 dark:border-slate-800 lg:flex-row lg:items-end lg:justify-between">
           <div>
