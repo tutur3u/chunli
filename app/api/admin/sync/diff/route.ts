@@ -4,6 +4,7 @@ import {
 } from "@/lib/junly-config";
 import { getJunlyAdminSession } from "@/lib/junly-admin-api";
 import { junlyExternalProjectManifest } from "@/lib/junly-external-project-manifest";
+import { linkPublicFolderAssets } from "@/lib/tuturuuu-public-folder-sync";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -22,12 +23,13 @@ export async function POST() {
   }
 
   const workspaceId = getJunlyWorkspaceId();
+  const manifest = linkPublicFolderAssets(junlyExternalProjectManifest);
   const response = await fetch(
     `${getJunlyApiBaseUrl().replace(/\/+$/, "")}/workspaces/${encodeURIComponent(
       workspaceId,
     )}/external-projects/sync/diff`,
     {
-      body: JSON.stringify({ manifest: junlyExternalProjectManifest }),
+      body: JSON.stringify({ manifest }),
       cache: "no-store",
       headers: {
         Accept: "application/json",

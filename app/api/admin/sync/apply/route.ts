@@ -4,6 +4,7 @@ import {
 } from "@/lib/junly-config";
 import { getJunlyAdminSession, revalidateJunlyContent } from "@/lib/junly-admin-api";
 import { junlyExternalProjectManifest } from "@/lib/junly-external-project-manifest";
+import { syncPublicFolderAssets } from "@/lib/tuturuuu-public-folder-sync";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -23,14 +24,36 @@ export async function POST(request: Request) {
 
   const body = (await request.json().catch(() => null)) as { force?: unknown } | null;
   const workspaceId = getJunlyWorkspaceId();
+  const apiBaseUrl = getJunlyApiBaseUrl();
+  const publicAssetSync = await syncPublicFolderAssets({
+    accessToken: session.accessToken,
+    apiBaseUrl,
+    manifest: junlyExternalProjectManifest,
+    tokenType: session.tokenType,
+    workspaceId,
+  });
+
+  if (publicAssetSync.skipped.length > 0) {
+    return NextResponse.json(
+      {
+        error: "Missing local public assets. Upload aborted before applying the manifest.",
+        publicAssetSync: {
+          skipped: publicAssetSync.skipped,
+          uploaded: publicAssetSync.uploaded,
+        },
+      },
+      { status: 400 },
+    );
+  }
+
   const response = await fetch(
-    `${getJunlyApiBaseUrl().replace(/\/+$/, "")}/workspaces/${encodeURIComponent(
+    `${apiBaseUrl.replace(/\/+$/, "")}/workspaces/${encodeURIComponent(
       workspaceId,
     )}/external-projects/sync/apply`,
     {
       body: JSON.stringify({
         force: body?.force === true,
-        manifest: junlyExternalProjectManifest,
+        manifest: publicAssetSync.manifest,
       }),
       cache: "no-store",
       headers: {
@@ -47,5 +70,11 @@ export async function POST(request: Request) {
   }
 
   revalidateJunlyContent();
-  return NextResponse.json(await response.json());
+  return NextResponse.json({
+    ...(await response.json()),
+    publicAssetSync: {
+      skipped: publicAssetSync.skipped,
+      uploaded: publicAssetSync.uploaded,
+    },
+  });
 }

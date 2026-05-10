@@ -159,8 +159,78 @@ function markdownFromSections(sections: ContentSection[]) {
 		.join("\n\n");
 }
 
+function publicImageAsset({
+	altText,
+	publicPath,
+	role,
+	sortOrder,
+	stableSourceId,
+}: {
+	altText: string;
+	publicPath: string;
+	role: string;
+	sortOrder: number;
+	stableSourceId: string;
+}) {
+	return {
+		altText,
+		assetType: "image",
+		metadata: {
+			publicPath,
+			role,
+		},
+		sortOrder,
+		stableSourceId,
+	};
+}
+
+function projectAssets(project: ProjectRecord) {
+	const thumbnail = project.researchDocs?.thumbnail;
+	if (!thumbnail) {
+		return undefined;
+	}
+
+	return [
+		publicImageAsset({
+			altText: `${project.title} research thumbnail`,
+			publicPath: thumbnail,
+			role: "thumbnail",
+			sortOrder: 0,
+			stableSourceId: `junly:project:${project.id}:thumbnail`,
+		}),
+	];
+}
+
+function gameAssets(game: GamePreview) {
+	const gameplay = game.screenshots?.gameplay ?? [];
+	const bts = game.screenshots?.bts ?? [];
+	const assets = [
+		...gameplay.map((publicPath, index) =>
+			publicImageAsset({
+				altText: `${game.title} gameplay screenshot ${index + 1}`,
+				publicPath,
+				role: "gameplay",
+				sortOrder: index,
+				stableSourceId: `junly:game:${game.id}:gameplay:${index + 1}`,
+			}),
+		),
+		...bts.map((publicPath, index) =>
+			publicImageAsset({
+				altText: `${game.title} behind-the-scenes screenshot ${index + 1}`,
+				publicPath,
+				role: "bts",
+				sortOrder: gameplay.length + index,
+				stableSourceId: `junly:game:${game.id}:bts:${index + 1}`,
+			}),
+		),
+	];
+
+	return assets.length > 0 ? assets : undefined;
+}
+
 function projectEntry(project: ProjectRecord): JunlyManifestEntry {
 	return {
+		assets: projectAssets(project),
 		blocks: [
 			{
 				blockType: "markdown",
@@ -192,6 +262,7 @@ function projectEntry(project: ProjectRecord): JunlyManifestEntry {
 
 function gameEntry(game: GamePreview): JunlyManifestEntry {
 	return {
+		assets: gameAssets(game),
 		blocks: [
 			{
 				blockType: "markdown",
@@ -335,6 +406,7 @@ export const junlyExternalProjectManifest = {
 				title: "Launcher",
 			},
 			{
+				assetTypes: ["image"],
 				blockTypes: ["markdown"],
 				collection_type: "projects",
 				description: "Research and portfolio project entries.",
@@ -343,6 +415,7 @@ export const junlyExternalProjectManifest = {
 				title: "Projects",
 			},
 			{
+				assetTypes: ["image"],
 				blockTypes: ["markdown"],
 				collection_type: "games",
 				description: "Playable game and prototype entries.",
