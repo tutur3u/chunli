@@ -1,5 +1,5 @@
 import { createCipheriv, createDecipheriv, createHash, randomBytes } from "node:crypto";
-import { getJunlyWorkspaceId } from "@/lib/junly-config";
+import { getJunlyApiBaseUrl, getJunlyWorkspaceId } from "@/lib/junly-config";
 import { cookies } from "next/headers";
 import type { NextResponse } from "next/server";
 
@@ -82,11 +82,33 @@ function unsealSession(value: string): JunlyAdminSession | null {
   }
 }
 
+function getJunlySessionValidationUrl(workspaceId: string) {
+  const apiBaseUrl = getJunlyApiBaseUrl().replace(/\/+$/, "");
+  return `${apiBaseUrl}/workspaces/${encodeURIComponent(workspaceId)}/external-projects/summary`;
+}
+
+async function validateJunlySession(session: JunlyAdminSession) {
+  try {
+    const response = await fetch(getJunlySessionValidationUrl(session.workspaceId), {
+      cache: "no-store",
+      headers: {
+        Accept: "application/json",
+        Authorization: `${session.tokenType} ${session.accessToken}`,
+      },
+    });
+
+    return response.ok ? session : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function getJunlySessionFromCookies() {
   const cookieStore = await cookies();
   const value = cookieStore.get(JUNLY_SESSION_COOKIE)?.value;
+  const session = value ? unsealSession(value) : null;
 
-  return value ? unsealSession(value) : null;
+  return session ? validateJunlySession(session) : null;
 }
 
 export function setJunlySessionCookie(
