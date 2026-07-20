@@ -205,7 +205,7 @@ export function LauncherShell({
 			</header>
 
 			<div className="absolute inset-0 overflow-y-auto px-6 pt-28 pb-24 md:flex md:items-center md:justify-center md:overflow-hidden md:px-20">
-				<div className="grid w-full max-w-6xl grid-cols-3 place-items-center gap-x-6 gap-y-6 sm:grid-cols-3 md:grid-cols-4 md:gap-x-24 md:gap-y-12">
+				<div className="grid w-full max-w-6xl grid-cols-3 place-items-center gap-x-6 gap-y-6 sm:grid-cols-3 md:grid-cols-5 md:gap-x-10 md:gap-y-12">
 					{apps.map((app, index) => (
 						<motion.div
 							key={app.id}
@@ -228,21 +228,12 @@ export function LauncherShell({
 								</div>
 							</button>
 							<span
-								className={`mt-2 text-center text-xs font-bold sm:hidden ${
+								className={`mt-2 text-center text-xs font-bold sm:text-sm ${
 									theme === "dark" ? "text-slate-300" : "text-slate-600"
 								}`}
 							>
 								{app.title}
 							</span>
-							<div
-								className={`absolute left-1/2 top-full mt-3 z-20 -translate-x-1/2 rounded-full border px-3 py-1.5 text-sm font-bold whitespace-nowrap opacity-0 shadow-md transition-opacity backdrop-blur-sm hidden md:block group-hover:opacity-100 ${
-									theme === "dark"
-										? "bg-slate-950/90 text-slate-100 border-sky-100/20"
-										: "bg-[#cbf0f7]/94 text-sky-900 border-[#d9f7fc] shadow-[0_12px_28px_rgba(67,152,184,0.16)]"
-								}`}
-							>
-								{app.title}
-							</div>
 						</motion.div>
 					))}
 				</div>

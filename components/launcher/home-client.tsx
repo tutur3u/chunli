@@ -19,8 +19,6 @@ import { LauncherShell } from "@/components/launcher/shell";
 import {
 	APP_KEY,
 	PROJECT_KEY,
-	ARTWORK_KEY,
-	TRACK_KEY,
 	GAME_KEY,
 	GAME_FILTER_KEY,
 	GAME_TAB_KEY,
@@ -36,8 +34,6 @@ import type {
 export default function HomeClient() {
 	const [activeApp, setActiveApp] = useQueryState(APP_KEY, appIdParser);
 	const [selectedProject, setSelectedProject] = useQueryState(PROJECT_KEY);
-	const [selectedArtwork, setSelectedArtwork] = useQueryState(ARTWORK_KEY);
-	const [activeTrack, setActiveTrack] = useQueryState(TRACK_KEY);
 	const [selectedGame, setSelectedGame] = useQueryState(GAME_KEY);
 	const [gameFilter, setGameFilter] = useQueryState(GAME_FILTER_KEY);
 	const [gameTab, setGameTab] = useQueryState(GAME_TAB_KEY, gameTabParser);
@@ -136,8 +132,6 @@ export default function HomeClient() {
 	const closeApp = () => {
 		setActiveApp(null);
 		setSelectedProject(null);
-		setSelectedArtwork(null);
-		setActiveTrack(null);
 		setSelectedGame(null);
 		setGameFilter(null);
 		setGameTab(null);
@@ -164,10 +158,6 @@ export default function HomeClient() {
 	const urlParams = {
 		selectedProject,
 		setSelectedProject,
-		selectedArtwork,
-		setSelectedArtwork,
-		activeTrack,
-		setActiveTrack,
 		selectedGame,
 		setSelectedGame,
 		gameFilter,

@@ -6,9 +6,6 @@ export type ThemePreference = ThemeMode | "system";
 export type AppId =
 	| "about"
 	| "projects"
-	| "gallery"
-	| "blog"
-	| "music"
 	| "games"
 	| "contact"
 	| "settings";
@@ -31,10 +28,6 @@ export type SettingsContentProps = {
 export type UrlParams = {
 	selectedProject: string | null;
 	setSelectedProject: (value: string | null) => void;
-	selectedArtwork: string | null;
-	setSelectedArtwork: (value: string | null) => void;
-	activeTrack: string | null;
-	setActiveTrack: (value: string | null) => void;
 	selectedGame: string | null;
 	setSelectedGame: (value: string | null) => void;
 	gameFilter: string | null;
