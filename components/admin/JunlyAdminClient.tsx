@@ -24,7 +24,6 @@ import {
   Settings2,
   Undo2,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useMemo, useState, type ReactNode } from "react";
 
 type AdminLink = {
@@ -534,7 +533,6 @@ export function JunlyAdminClient({
   webAppUrl: string;
   workspaceId: string;
 }) {
-  const router = useRouter();
   const [studio, setStudio] = useState(initialStudio);
   const [collectionFilter, setCollectionFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState<JunlyEntryStatus | "all">("all");
@@ -641,8 +639,7 @@ export function JunlyAdminClient({
 
   const signOut = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/");
-    router.refresh();
+    window.location.replace("/");
   };
 
   return (
