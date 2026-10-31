@@ -24,7 +24,8 @@ import {
   Settings2,
   Undo2,
 } from "lucide-react";
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
+import { useMemo, useState, type ReactNode } from "react";
 
 type AdminLink = {
   actionLabel: string;
@@ -533,6 +534,7 @@ export function JunlyAdminClient({
   webAppUrl: string;
   workspaceId: string;
 }) {
+  const router = useRouter();
   const [studio, setStudio] = useState(initialStudio);
   const [collectionFilter, setCollectionFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState<JunlyEntryStatus | "all">("all");
@@ -567,11 +569,11 @@ export function JunlyAdminClient({
     [studio.entries],
   );
 
-  useEffect(() => {
-    if (selectedEntry && selectedEntry.id !== selectedEntryId) {
-      setSelectedEntryId(selectedEntry.id);
-    }
-  }, [selectedEntry, selectedEntryId]);
+  // Keep the stored id in sync with the entry actually shown (adjust state during render,
+  // not in an effect, so React re-renders immediately without a cascading effect pass).
+  if (selectedEntry && selectedEntry.id !== selectedEntryId) {
+    setSelectedEntryId(selectedEntry.id);
+  }
 
   const refreshStudio = async () => {
     setPendingAction("refresh");
@@ -639,7 +641,8 @@ export function JunlyAdminClient({
 
   const signOut = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
-    window.location.href = "/";
+    router.push("/");
+    router.refresh();
   };
 
   return (
