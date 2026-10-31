@@ -33,6 +33,16 @@ const nextConfig: NextConfig = {
   },
   transpilePackages: ["motion"],
   output: "standalone",
+  async headers() {
+    // Admin pages and data carry a session: never let a browser or bfcache entry replay them.
+    const noStore = [{ key: "Cache-Control", value: "private, no-store" }];
+
+    return [
+      { source: "/admin", headers: noStore },
+      { source: "/admin/:path*", headers: noStore },
+      { source: "/api/admin/:path*", headers: noStore },
+    ];
+  },
 };
 
 export default nextConfig;
